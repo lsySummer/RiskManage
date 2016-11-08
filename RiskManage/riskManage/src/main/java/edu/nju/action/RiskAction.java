@@ -1,0 +1,8 @@
+package edu.nju.action;
+
+import org.springframework.stereotype.Controller;
+
+@Controller
+public class RiskAction {
+
+}

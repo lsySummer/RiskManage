@@ -9,12 +9,6 @@
 <title>Insert title here</title>
 </head>
 <body>
-<h1>haha</h1>
-<s:form action="login" method="post">
-角色<input type="text" name="role"><br/>
-用户名<input type="text" name="username"><br/>
-密码<input type="password" name="password"><br/>
-<input type="submit">
-</s:form>
+<h1>Welcome!</h1>
 </body>
 </html>

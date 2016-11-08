@@ -6,8 +6,9 @@
 <struts>
 
 	<package name="struts2" extends="struts-default">
-		<action name="test" class="TestAction">
-		<result name="success">/new.jsp</result>
+		<action name="login" class="LoginAction" method="login">
+			<result name="success">/jsp/hello.jsp</result>
+			<result name="error">/jsp/error.jsp</result>
 		</action>
 	</package>
 

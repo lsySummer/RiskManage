@@ -29,7 +29,7 @@
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">
 		<property name="driverClassName" value="com.mysql.jdbc.Driver" />
 		<property name="url"
-			value="jdbc:mysql://localhost:3306/test?autoReconnect=true" />
+			value="jdbc:mysql://localhost:3306/risk?autoReconnect=true" />
 		<property name="username" value="root" />
 		<property name="password" value="root" />
 	</bean>
@@ -56,7 +56,7 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<bean id="TestAction" class="edu.nju.action.TestAction">
+	<bean id="LoginAction" class="edu.nju.action.UserAction">
 	</bean>
 
 

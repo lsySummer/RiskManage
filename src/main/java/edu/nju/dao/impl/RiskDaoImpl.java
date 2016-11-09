@@ -11,7 +11,6 @@ import edu.nju.dao.BaseDao;
 import edu.nju.dao.RiskDao;
 import edu.nju.model.RiskItem;
 import edu.nju.model.RiskState;
-import edu.nju.model.User;
 
 @Repository
 public class RiskDaoImpl implements RiskDao {
@@ -58,7 +57,6 @@ public class RiskDaoImpl implements RiskDao {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<RiskItem> show() {
 		return baseDao.getAllList(RiskItem.class);
@@ -69,7 +67,7 @@ public class RiskDaoImpl implements RiskDao {
 	public List<RiskItem> find(String keyword) {
 		String str = "from RiskItem s where s.content like \'%" + keyword
 				+ "%\'";
-		List<RiskItem> list = baseDao.find(str);
+		List<RiskItem> list = (List<RiskItem>)baseDao.find(str);
 		return list;
 	}
 
@@ -84,7 +82,6 @@ public class RiskDaoImpl implements RiskDao {
 		return false;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<RiskState> getAllState() {
 		return baseDao.getAllList(RiskState.class);
@@ -92,7 +89,7 @@ public class RiskDaoImpl implements RiskDao {
 
 	@Override
 	public RiskState getStateById(int id) {
-		RiskState state = (RiskState) baseDao.load(RiskState.class, id);
+		RiskState state = baseDao.load(RiskState.class, id);
 		return state;
 	}
 

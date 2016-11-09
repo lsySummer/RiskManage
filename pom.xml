@@ -59,21 +59,11 @@
     </dependency>
 
     <!-- 添加Hibernate依赖 -->
-    <dependency>
-      <groupId>org.hibernate</groupId>
-      <artifactId>hibernate-core</artifactId>
-      <version>4.3.7.Final</version>
-      <exclusions>
-        <exclusion>
-          <artifactId>xml-apis</artifactId>
-          <groupId>xml-apis</groupId>
-        </exclusion>
-        <exclusion>
-          <artifactId>jandex</artifactId>
-          <groupId>org.jboss</groupId>
-        </exclusion>
-      </exclusions>
-    </dependency>
+	<dependency>
+	    <groupId>org.hibernate</groupId>
+	    <artifactId>hibernate-core</artifactId>
+	    <version>5.2.4.Final</version>
+	</dependency>
     <dependency>
       <groupId>commons-dbcp</groupId>
       <artifactId>commons-dbcp</artifactId>

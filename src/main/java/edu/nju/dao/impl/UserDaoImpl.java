@@ -11,22 +11,22 @@ import edu.nju.dao.UserDao;
 import edu.nju.model.User;
 
 @Repository
-public class UserDaoImpl implements UserDao{
+public class UserDaoImpl implements UserDao {
 
 	@Autowired
 	private BaseDao baseDao;
-	
+
 	@Override
 	public User register(String username, String password, String role) {
-		try{
-			User u=new User();
+		try {
+			User u = new User();
 			u.setUsername(username);
 			u.setPassword(password);
 			u.setRole(role);
 			baseDao.save(u);
 			System.out.println(u.getId());
 			return u;
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 		}
 		return null;
@@ -44,7 +44,6 @@ public class UserDaoImpl implements UserDao{
 		return null;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> showAll() {
 		return baseDao.getAllList(User.class);
@@ -52,10 +51,10 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public boolean deleteUser(int id) {
-		try{
-			baseDao.delete(User.class,id);
+		try {
+			baseDao.delete(User.class, id);
 			return true;
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -63,10 +62,10 @@ public class UserDaoImpl implements UserDao{
 
 	@Override
 	public boolean modifyUser(User user) {
-		try{
+		try {
 			baseDao.update(user);
 			return true;
-		}catch(Exception e){
+		} catch (Exception e) {
 			e.printStackTrace();
 			return false;
 		}
@@ -76,13 +75,13 @@ public class UserDaoImpl implements UserDao{
 	@Override
 	public List<User> getUser(String keyword) {
 		String str = "from User s where s.username like \'%" + keyword + "%\'";
-		List<User> list = baseDao.find(str);
+		List<User> list = (List<User>) baseDao.find(str);
 		return list;
 	}
 
 	@Override
 	public User getById(int id) {
-		User user=(User)baseDao.load(User.class, id);
+		User user = baseDao.load(User.class, id);
 		return user;
 	}
 

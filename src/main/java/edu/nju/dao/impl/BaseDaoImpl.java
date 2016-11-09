@@ -1,4 +1,4 @@
-﻿package edu.nju.dao.impl;
+package edu.nju.dao.impl;
 
 import java.io.Serializable;
 import java.util.List;

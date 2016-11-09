@@ -50,19 +50,19 @@ public class RiskItem {
 	public void setRiskTrigger(String riskTrigger) {
 		this.riskTrigger = riskTrigger;
 	}
-	public int getSubmitter() {
+	
+	public int getSubmitterId() {
 		return submitterId;
 	}
-	public void setSubmitter(int submitterId) {
+	public void setSubmitterId(int submitterId) {
 		this.submitterId = submitterId;
 	}
 	public int getFollowerId() {
 		return followerId;
 	}
-	public void setFollower(int followerId) {
+	public void setFollowerId(int followerId) {
 		this.followerId = followerId;
 	}
-	
 	@Override
 	public String toString() {
 		return "RiskItem [id=" + id + ", content=" + content + ", possibility=" + possibility

@@ -10,6 +10,11 @@
 			<result name="success">/jsp/hello.jsp</result>
 			<result name="error">/jsp/error.jsp</result>
 		</action>
+		
+		<action name="risk" class="riskAction" method="add">
+			<result name="success">/jsp/hello.jsp</result>
+			<result name="error">/jsp/error.jsp</result>
+		</action>
 	</package>
 
 </struts>

@@ -58,6 +58,9 @@
 	
 	<bean id="LoginAction" class="edu.nju.action.UserAction">
 	</bean>
+	
+	<bean id="riskAction" class="edu.nju.action.RiskAction">
+	</bean>
 
 
 	<!-- 定义 Autowired 自动注入 bean -->

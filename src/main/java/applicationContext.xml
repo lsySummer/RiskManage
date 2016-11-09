@@ -76,7 +76,7 @@
 			<tx:method name="*" propagation="NOT_SUPPORTED" read-only="true" />
 		</tx:attributes>
 	</tx:advice>
-	<!-- 定义切面，在edu.nju.onlinestock.service包及子包中所有以Service结尾的方法中,执行有关的hibernate 
+	<!-- 定义切面，在edu.nju.service包及子包中所有以Service结尾的方法中,执行有关的hibernate 
 		session的事务操作 -->
 	<aop:config>
 		<!-- 只对业务逻辑层实施事务 -->

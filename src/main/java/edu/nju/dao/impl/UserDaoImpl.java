@@ -24,21 +24,22 @@ public class UserDaoImpl implements UserDao {
 			u.setPassword(password);
 			u.setRole(role);
 			baseDao.save(u);
-			System.out.println(u.getId());
 			return u;
 		} catch (Exception e) {
-//			e.printStackTrace();
+			return null;
 		}
-		return null;
 	}
 
 	@SuppressWarnings("unchecked")
 	@Override
 	public User login(String username, String password, String role) {
-		String str = "from User s where s.username=? and s.password=?";
 		Session session = baseDao.getNewSession();
-		List<User> result = session.createQuery(str).setParameter(0, username).setParameter(1, password).list();
-		if (result.size() != 0) {
+		List<User> result = session
+				.createQuery("from User s where s.username=? and s.password=?")
+				.setParameter(0, username).
+				setParameter(1, password)
+				.list();
+		if (!result.isEmpty()) {
 			return result.get(0);
 		}
 		return null;
@@ -55,7 +56,6 @@ public class UserDaoImpl implements UserDao {
 			baseDao.delete(User.class, id);
 			return true;
 		} catch (Exception e) {
-//			e.printStackTrace();
 			return false;
 		}
 	}
@@ -66,7 +66,6 @@ public class UserDaoImpl implements UserDao {
 			baseDao.update(user);
 			return true;
 		} catch (Exception e) {
-//			e.printStackTrace();
 			return false;
 		}
 	}
@@ -75,14 +74,12 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public List<User> getUser(String keyword) {
 		String str = "from User s where s.username like \'%" + keyword + "%\'";
-		List<User> list = (List<User>) baseDao.find(str);
-		return list;
+		return (List<User>) baseDao.find(str);
 	}
 
 	@Override
 	public User getById(int id) {
-		User user = baseDao.load(User.class, id);
-		return user;
+		return baseDao.load(User.class, id);
 	}
 
 }

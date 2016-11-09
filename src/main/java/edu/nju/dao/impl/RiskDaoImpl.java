@@ -30,7 +30,7 @@ public class RiskDaoImpl implements RiskDao {
 			addState(state);
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		return false;
 	}
@@ -41,7 +41,7 @@ public class RiskDaoImpl implements RiskDao {
 			baseDao.delete(RiskItem.class, id);
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			return false;
 		}
 	}
@@ -52,7 +52,7 @@ public class RiskDaoImpl implements RiskDao {
 			baseDao.update(risk);
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			return false;
 		}
 	}
@@ -77,7 +77,7 @@ public class RiskDaoImpl implements RiskDao {
 			baseDao.save(state);
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		return false;
 	}

@@ -71,7 +71,7 @@ public class BaseDaoImpl implements BaseDao {
 			tx.commit();
 			session.close();
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 	}
 

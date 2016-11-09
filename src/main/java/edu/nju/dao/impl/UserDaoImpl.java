@@ -27,7 +27,7 @@ public class UserDaoImpl implements UserDao {
 			System.out.println(u.getId());
 			return u;
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		return null;
 	}
@@ -55,7 +55,7 @@ public class UserDaoImpl implements UserDao {
 			baseDao.delete(User.class, id);
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			return false;
 		}
 	}
@@ -66,7 +66,7 @@ public class UserDaoImpl implements UserDao {
 			baseDao.update(user);
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			return false;
 		}
 	}

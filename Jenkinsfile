@@ -13,7 +13,7 @@ node {
         sh "docker stop risk|| true"
         sh "docker rm risk || true"
         sh "docker run --name risk -p 11016:8080 -d tomcat"
-        sh "docker cp target/RiskManage.war risk:/usr/local/tomcat/webapps/RiskManage.war"
+        sh "docker cp target/RiskManage.war risk:/usr/local/tomcat/webapps"
     }
     stage('results') {
         archiveArtifacts artifacts: '**/target/*.war', fingerprint: true

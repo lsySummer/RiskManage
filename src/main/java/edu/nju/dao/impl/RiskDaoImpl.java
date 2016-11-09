@@ -62,13 +62,11 @@ public class RiskDaoImpl implements RiskDao {
 		return baseDao.getAllList(RiskItem.class);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<RiskItem> find(String keyword) {
 		String str = "from RiskItem s where s.content like \'%" + keyword
 				+ "%\'";
-		List<RiskItem> list = (List<RiskItem>)baseDao.find(str);
-		return list;
+		return baseDao.find(str);
 	}
 
 	@Override
@@ -78,8 +76,8 @@ public class RiskDaoImpl implements RiskDao {
 			return true;
 		} catch (Exception e) {
 //			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 
 	@Override

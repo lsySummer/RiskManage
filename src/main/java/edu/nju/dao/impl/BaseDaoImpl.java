@@ -53,56 +53,52 @@ public class BaseDaoImpl implements BaseDao {
 	/** * 获取总数量 * * @param c * @return */
 
 	public long getTotalCount(Class<?> c) {
-		Session session = getNewSession();
-		String hql = "select count(*) from " + c.getName();
-		Long count = (Long) session.createQuery(hql).uniqueResult();
-		session.close();
-		return count != null ? count.longValue() : 0;
+		try (Session session = getNewSession()) {
+			String hql = "select count(*) from " + c.getName();
+			Long count = (Long) session.createQuery(hql).uniqueResult();
+			return count != null ? count.longValue() : 0;
+		}
 	}
 
 	/** * 保存 * * @param bean * */
 	public void save(Object bean) {
-		try {
-			Session session = getNewSession();
+		try (Session session = getNewSession()) {
 			Transaction tx = session.beginTransaction();
 			session.save(bean);
 			session.flush();
 			session.clear();
 			tx.commit();
-			session.close();
-		} catch (Exception e) {
-//			e.printStackTrace();
 		}
 	}
 
 	/** * 更新 * * @param bean * */
 	public void update(Object bean) {
-		Session session = getNewSession();
-		session.update(bean);
-		session.flush();
-		session.clear();
-		session.close();
+		try (Session session = getNewSession()) {
+			session.update(bean);
+			session.flush();
+			session.clear();
+		}
 	}
 
 	/** * 删除 * * @param bean * */
 	public void delete(Object bean) {
-
-		Session session = getNewSession();
-		session.delete(bean);
-		session.flush();
-		session.clear();
-		session.close();
+		try (Session session = getNewSession()) {
+			session.delete(bean);
+			session.flush();
+			session.clear();
+		}
 	}
 
 	/** * 根据ID删除 * * @param c 类 * * @param id ID * */
 	public void delete(Class<?> c, Serializable id) {
-		Session session = getNewSession();
-		Transaction tx = session.beginTransaction();
-		Object obj = session.get(c, id);
-		session.delete(obj);
-		flush();
-		clear();
-		tx.commit();
+		try (Session session = getNewSession()) {
+			Transaction tx = session.beginTransaction();
+			Object obj = session.get(c, id);
+			session.delete(obj);
+			tx.commit();
+			flush();
+			clear();
+		}
 	}
 
 	/** * 批量删除 * * @param c 类 * * @param ids ID 集合 * */
@@ -116,9 +112,10 @@ public class BaseDaoImpl implements BaseDao {
 	}
 
 	// 根据HQL语句进行查询
-	public List<?> find(String queryString) {
-		Session session = getNewSession();
-		return session.createQuery(queryString).list();
+	public <T> List<T> find(String queryString) {
+		try (Session session = getNewSession()) {
+			return session.createQuery(queryString).list();
+		}
 	}
 
 }

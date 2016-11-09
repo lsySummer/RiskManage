@@ -16,10 +16,10 @@ public class BaseAction extends ActionSupport implements SessionAware, ServletRe
 
 	private static final long serialVersionUID = 1L;
 
-	public HttpServletRequest request;
-	public HttpServletResponse response;
-	public ServletContext context;
-	public Map<String, Object> session;
+	protected HttpServletRequest request;
+	protected HttpServletResponse response;
+	protected ServletContext context;
+	protected Map<String, Object> session;
 
 	public void setSession(Map<String, Object> session) {
 		this.session = session;

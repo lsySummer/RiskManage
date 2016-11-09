@@ -3,6 +3,7 @@ package edu.nju.dao.impl;
 import java.util.List;
 
 import org.hibernate.Session;
+import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
@@ -33,16 +34,17 @@ public class UserDaoImpl implements UserDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public User login(String username, String password, String role) {
-		Session session = baseDao.getNewSession();
-		List<User> result = session
-				.createQuery("from User s where s.username=? and s.password=?")
-				.setParameter(0, username).
-				setParameter(1, password)
-				.list();
-		if (!result.isEmpty()) {
-			return result.get(0);
+		try (Session session = baseDao.getNewSession()) {			
+			List<User> result = session.createCriteria(User.class)
+					.add(Restrictions.eq("username", username))
+					.add(Restrictions.eq("password", password))
+					.list();
+			
+			if (!result.isEmpty()) {
+				return result.get(0);
+			}
+			return null;
 		}
-		return null;
 	}
 
 	@Override
@@ -70,11 +72,10 @@ public class UserDaoImpl implements UserDao {
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<User> getUser(String keyword) {
 		String str = "from User s where s.username like \'%" + keyword + "%\'";
-		return (List<User>) baseDao.find(str);
+		return baseDao.find(str);
 	}
 
 	@Override

@@ -17,7 +17,7 @@ public interface BaseDao {
 
 	public <T> T load(Class<T> c, int id);
 
-	List<?> find(String queryString);
+	public <T> List<T> find(String queryString);
 
 	public <T> List<T> getAllList(Class<T> c);
 

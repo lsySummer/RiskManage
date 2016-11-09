@@ -23,7 +23,7 @@
 		for this bean go here </bean> more bean definitions go here -->
 
 
-	<context:component-scan base-package=" edu.nju " />
+	<context:component-scan base-package="edu.nju" />
 
 	<bean id="dataSource"
 		class="org.springframework.jdbc.datasource.DriverManagerDataSource">

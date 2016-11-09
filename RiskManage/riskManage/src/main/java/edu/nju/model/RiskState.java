@@ -15,7 +15,7 @@ import org.hibernate.annotations.GenericGenerator;
 @Table(name="risk_state")
 public class RiskState {
 	private int id;
-	private String rid;	//风险条目id
+	private int rid;	//风险条目id
 	private String state;		//状态
 	private String detail;			//详细描述
 	private Date createTime;			//建立状态时间
@@ -29,10 +29,10 @@ public class RiskState {
 	public void setId(int id) {
 		this.id = id;
 	}
-	public String getRid() {
+	public int getRid() {
 		return rid;
 	}
-	public void setRid(String rid) {
+	public void setRid(int rid) {
 		this.rid = rid;
 	}
 	public String getState() {

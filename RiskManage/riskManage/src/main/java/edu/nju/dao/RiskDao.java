@@ -22,5 +22,10 @@ public interface RiskDao {
 	public List<RiskState> getAllState();
 
 	public RiskState getStateById(int id);
+	
+	public List<RiskItem>  getSubmitItem(int userId);
+	public List<RiskState> getSubmitState(int riskId);
+	public List<RiskItem>  getFollowItem(int userId);
+	
 
 }

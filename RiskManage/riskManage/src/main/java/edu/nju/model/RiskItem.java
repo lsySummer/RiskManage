@@ -15,8 +15,8 @@ public class RiskItem {
 	private String possibility;//可能性
 	private String level;//影响程度(高？低)
 	private String riskTrigger;//触发器
-	private String submitter;		//提交者
-	private String follower;	//跟踪者
+	private int submitterId;		//提交者
+	private int followerId;	//跟踪者
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -50,22 +50,22 @@ public class RiskItem {
 	public void setRiskTrigger(String riskTrigger) {
 		this.riskTrigger = riskTrigger;
 	}
-	public String getSubmitter() {
-		return submitter;
+	public int getSubmitter() {
+		return submitterId;
 	}
-	public void setSubmitter(String submitter) {
-		this.submitter = submitter;
+	public void setSubmitter(int submitterId) {
+		this.submitterId = submitterId;
 	}
-	public String getFollower() {
-		return follower;
+	public int getFollowerId() {
+		return followerId;
 	}
-	public void setFollower(String follower) {
-		this.follower = follower;
+	public void setFollower(int followerId) {
+		this.followerId = followerId;
 	}
 	
 	@Override
 	public String toString() {
 		return "RiskItem [id=" + id + ", content=" + content + ", possibility=" + possibility
-				+ ", level=" + level+ ", riskTrigger=" + riskTrigger + ", submitter=" + submitter + ", follower=" + follower  + "]";
+				+ ", level=" + level+ ", riskTrigger=" + riskTrigger + ", submitter=" + submitterId + ", follower=" + followerId  + "]";
 	}
 }

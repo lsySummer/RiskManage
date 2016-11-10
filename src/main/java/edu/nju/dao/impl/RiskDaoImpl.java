@@ -95,7 +95,7 @@ public class RiskDaoImpl implements RiskDao {
 	public List<RiskItem> getSubmitItem(int userId) {
 		return this.baseDao.find(
 				RiskItem.class,
-				new ParamMap("submitterid", userId));
+				new ParamMap("submitterId", userId));
 
 		// String str = "from RiskItem s where s.submitterId=?";
 		// Session session = baseDao.getNewSession();
@@ -124,6 +124,11 @@ public class RiskDaoImpl implements RiskDao {
 		// List<RiskItem> result = session.createQuery(str)
 		// .setParameter(0, userId).list();
 		// return result;
+	}
+
+	@Override
+	public RiskItem getItemById(int id) {
+		return this.baseDao.load(RiskItem.class, id);
 	};
 
 }

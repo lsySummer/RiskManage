@@ -5,6 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.nju.MessageException;
 import edu.nju.ParamMap;
 import edu.nju.dao.BaseDao;
 import edu.nju.dao.UserDao;
@@ -18,6 +19,10 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User register(String username, String password, String role) {
+		boolean isExisted = !this.baseDao.find(User.class, new ParamMap("username", username)).isEmpty();
+		if (isExisted) {
+			throw new MessageException("用户名已存在");
+		}
 		try {
 			User u = new User();
 			u.setUsername(username);
@@ -26,7 +31,7 @@ public class UserDaoImpl implements UserDao {
 			baseDao.save(u);
 			return u;
 		} catch (Exception e) {
-//			e.printStackTrace();
+			// e.printStackTrace();
 			return null;
 		}
 	}
@@ -34,8 +39,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User login(String username, String password, String role) {
 		ParamMap map = new ParamMap("username", username)
-				.append("password", password)
-				.append("role", role);
+				.append("password", password);
 		List<User> result = this.baseDao.find(User.class, map);
 		if (!result.isEmpty()) {
 			return result.get(0);

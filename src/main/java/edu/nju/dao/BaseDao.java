@@ -31,6 +31,8 @@ public interface BaseDao {
 
 	public void save(Object bean);
 
+	public void save(Object bean, Object key);
+
 	public void update(Object bean);
 
 	public void delete(Object bean);

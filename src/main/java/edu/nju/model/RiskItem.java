@@ -11,12 +11,15 @@ import javax.persistence.Table;
 public class RiskItem {
 
 	private int id;
+	private String name;
 	private String content;//内容
 	private String possibility;//可能性
 	private String level;//影响程度(高？低)
 	private String riskTrigger;//触发器
 	private int submitterId;		//提交者
 	private int followerId;	//跟踪者
+	private String subName;
+	private String folName;
 	
 	@Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -25,6 +28,25 @@ public class RiskItem {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	
+	public String getSubName() {
+		return subName;
+	}
+	public void setSubName(String subName) {
+		this.subName = subName;
+	}
+	public String getFolName() {
+		return folName;
+	}
+	public void setFolName(String folName) {
+		this.folName = folName;
+	}
+	public String getName() {
+		return name;
+	}
+	public void setName(String name) {
+		this.name = name;
 	}
 	public String getContent() {
 		return content;

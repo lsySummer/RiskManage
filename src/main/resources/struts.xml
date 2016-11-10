@@ -6,14 +6,49 @@
 <struts>
 
 	<package name="struts2" extends="struts-default">
+		<global-results>
+			<result name="error">/jsp/error.jsp</result>
+			<result name="login">/index.jsp</result>
+		</global-results>
+
 		<action name="login" class="LoginAction" method="login">
-			<result name="success">/jsp/hello.jsp</result>
-			<result name="error">/jsp/error.jsp</result>
+			<result name="success">/jsp/addRisk.jsp</result>
+			<result name="error">index.jsp</result>
 		</action>
-		
-		<action name="risk" class="riskAction" method="add">
-			<result name="success">/jsp/hello.jsp</result>
-			<result name="error">/jsp/error.jsp</result>
+
+		<action name="register" class="registerAction" method="register">
+			<result name="success">/jsp/addRisk.jsp</result>
+			<result name="repeat">/jsp/register.jsp</result>
+		</action>
+
+		<action name="addRisk" class="riskAction" method="add">
+			<result name="success">/jsp/followState.jsp</result>
+			<!-- <result name="error">/jsp/error.jsp</result> -->
+		</action>
+
+		<action name="toRisk" class="toRiskAction" method="toRisk">
+			<result name="success">/jsp/addRisk.jsp</result>
+			<!-- <result name="error">/jsp/error.jsp</result> -->
+		</action>
+
+		<action name="toState" class="toStateAction" method="toState">
+			<result name="success">/jsp/followState.jsp</result>
+			<!-- <result name="error">/jsp/error.jsp</result> -->
+		</action>
+
+		<action name="showState" class="showStateAction" method="showState">
+			<result name="success">/jsp/addState.jsp</result>
+			<!-- <result name="error">/jsp/error.jsp</result> -->
+		</action>
+
+		<action name="addState" class="addStateAction" method="addState">
+			<result name="success">/jsp/addState.jsp</result>
+			<!-- <result name="error">/jsp/error.jsp</result> -->
+		</action>
+
+		<action name="riskType" class="riskTypeAction" method="riskType">
+			<result name="success">/jsp/followState.jsp</result>
+			<!-- <result name="error">/jsp/error.jsp</result> -->
 		</action>
 	</package>
 

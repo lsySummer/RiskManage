@@ -20,7 +20,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.nju.dao.BaseDao;
-import edu.nju.model.User;
 
 @Repository
 public class BaseDaoImpl implements BaseDao {
@@ -45,7 +44,7 @@ public class BaseDaoImpl implements BaseDao {
 	public EntityManager getNewEntityManager() {
 		return this.emFactory.createEntityManager();
 	}
-	
+
 	private void transcaction(Consumer<EntityManager> action) {
 		EntityManager em = this.getEntityManager();
 		try {
@@ -104,7 +103,16 @@ public class BaseDaoImpl implements BaseDao {
 
 	/** * 保存 * * @param bean * */
 	public void save(Object bean) {
-		this.transcaction(em -> em.merge(bean));
+		this.save(bean, null);
+	}
+
+	public void save(Object bean, Object key) {
+		this.transcaction(em -> {
+			if (key == null ||
+					em.find(bean.getClass(), key) == null) {
+				em.merge(bean);
+			}
+		});
 	}
 
 	/** * 更新 * * @param bean * */

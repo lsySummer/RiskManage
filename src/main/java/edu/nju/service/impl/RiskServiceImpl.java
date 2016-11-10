@@ -10,9 +10,9 @@ import edu.nju.model.RiskItem;
 import edu.nju.model.RiskState;
 import edu.nju.service.RiskService;
 
-@Service 
-public class RiskServiceImpl implements RiskService{
-	
+@Service
+public class RiskServiceImpl implements RiskService {
+
 	@Autowired
 	private RiskDao riskDao;
 
@@ -41,7 +41,6 @@ public class RiskServiceImpl implements RiskService{
 		return riskDao.find(keyword);
 	}
 
-
 	@Override
 	public List<RiskState> getAllState() {
 		return riskDao.getAllState();
@@ -51,25 +50,29 @@ public class RiskServiceImpl implements RiskService{
 	public RiskState getStateById(int id) {
 		return riskDao.getStateById(id);
 	}
-	
+
 	@Override
-	public List<RiskItem>  getSubmitItem(int userId){
+	public List<RiskItem> getSubmitItem(int userId) {
 		return riskDao.getSubmitItem(userId);
 	};
 
 	@Override
-	public List<RiskState> getState(int riskId){
+	public List<RiskState> getState(int riskId) {
 		return riskDao.getSubmitState(riskId);
 	};
-	
-		@Override
-	public List<RiskItem>  getFollowItem(int userId){
+
+	@Override
+	public List<RiskItem> getFollowItem(int userId) {
 		return riskDao.getFollowItem(userId);
 	};
-	
-	
-		@Override
-	public boolean addState(RiskState state){
+
+	@Override
+	public boolean addState(RiskState state) {
 		return riskDao.addState(state);
+	}
+
+	@Override
+	public RiskItem getItemById(int id) {
+		return riskDao.getItemById(id);
 	};
 }

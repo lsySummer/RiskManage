@@ -1,28 +1,58 @@
 package edu.nju.action;
 
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
+import edu.nju.MessageException;
 import edu.nju.model.User;
+import edu.nju.service.RiskService;
 import edu.nju.service.UserService;
 
 @SuppressWarnings("serial")
 @Controller
-public class UserAction extends BaseAction{
-	
+public class UserAction extends BaseAction {
+
 	@Autowired
 	UserService userService;
-	
-	public String login(){
-		String username=request.getParameter("username");
-		String password=request.getParameter("password");
-		String role=request.getParameter("role");
-		User user=userService.register(username, password, role);
-		if(user==null){
+	@Autowired
+	RiskService riskService;
+
+	public String login() {
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		String role = request.getParameter("role");
+		User user = userService.login(username, password, role);
+		if (user == null) {
+			request.setAttribute("error", "用户名或密码错误");
 			return "error";
-		}else{
+		} else {
+			List<User> uList = userService.showAll();
+			request.setAttribute("uList", uList);
+			session.put("user", user);
 			return "success";
-			
+		}
+	}
+
+	public String register() {
+		String username = request.getParameter("username");
+		String password = request.getParameter("password");
+		String role = request.getParameter("role");
+		try {
+
+			User user = userService.register(username, password, role);
+			if (user == null) {
+				return "error";
+			} else {
+				List<User> uList = userService.showAll();
+				request.setAttribute("uList", uList);
+				session.put("user", user);
+				return "success";
+			}
+		} catch (MessageException e) {
+			request.setAttribute("message", e.getMessage());
+			return "repeat";
 		}
 	}
 }

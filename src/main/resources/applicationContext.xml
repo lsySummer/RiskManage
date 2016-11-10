@@ -55,11 +55,29 @@
 		class="org.springframework.orm.hibernate4.HibernateTransactionManager">
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
-	
+
 	<bean id="LoginAction" class="edu.nju.action.UserAction">
 	</bean>
-	
+
+	<bean id="registerAction" class="edu.nju.action.UserAction">
+	</bean>
+
 	<bean id="riskAction" class="edu.nju.action.RiskAction">
+	</bean>
+
+	<bean id="toRiskAction" class="edu.nju.action.RiskAction">
+	</bean>
+
+	<bean id="toStateAction" class="edu.nju.action.RiskAction">
+	</bean>
+
+	<bean id="showStateAction" class="edu.nju.action.RiskAction">
+	</bean>
+
+	<bean id="addStateAction" class="edu.nju.action.RiskAction">
+	</bean>
+
+	<bean id="riskTypeAction" class="edu.nju.action.RiskAction">
 	</bean>
 
 
@@ -76,8 +94,7 @@
 			<tx:method name="*" propagation="NOT_SUPPORTED" read-only="true" />
 		</tx:attributes>
 	</tx:advice>
-	<!-- 定义切面，在edu.nju.service包及子包中所有以Service结尾的方法中,执行有关的hibernate 
-		session的事务操作 -->
+	<!-- 定义切面，在edu.nju.service包及子包中所有以Service结尾的方法中,执行有关的hibernate session的事务操作 -->
 	<aop:config>
 		<!-- 只对业务逻辑层实施事务 -->
 		<aop:pointcut id="serviceOperation"

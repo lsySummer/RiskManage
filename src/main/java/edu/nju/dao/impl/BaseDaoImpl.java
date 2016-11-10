@@ -2,20 +2,60 @@ package edu.nju.dao.impl;
 
 import java.io.Serializable;
 import java.util.List;
+import java.util.Map;
+import java.util.function.Consumer;
+
+import javax.persistence.EntityManager;
+import javax.persistence.EntityManagerFactory;
+import javax.persistence.PersistenceUnit;
+import javax.persistence.RollbackException;
+import javax.persistence.criteria.CriteriaBuilder;
+import javax.persistence.criteria.CriteriaQuery;
+import javax.persistence.criteria.Predicate;
+import javax.persistence.criteria.Root;
 
 import org.hibernate.Session;
 import org.hibernate.SessionFactory;
-import org.hibernate.Transaction;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.nju.dao.BaseDao;
+import edu.nju.model.User;
 
 @Repository
 public class BaseDaoImpl implements BaseDao {
-	/** * Autowired 自动装配 相当于get() set() */
 	@Autowired
 	protected SessionFactory sessionFactory;
+
+	@PersistenceUnit
+	protected EntityManagerFactory emFactory;
+	private final ThreadLocal<EntityManager> emThreadLocal = new ThreadLocal<>();
+
+	@Override
+	public EntityManager getEntityManager() {
+		EntityManager em = this.emThreadLocal.get();
+		if (em == null || !em.isOpen()) {
+			em = this.emFactory.createEntityManager();
+			this.emThreadLocal.set(em);
+		}
+		return em;
+	}
+
+	@Override
+	public EntityManager getNewEntityManager() {
+		return this.emFactory.createEntityManager();
+	}
+	
+	private void transcaction(Consumer<EntityManager> action) {
+		EntityManager em = this.getEntityManager();
+		try {
+			em.getTransaction().begin();
+			action.accept(em);
+			em.getTransaction().commit();
+		} catch (RollbackException e) {
+			em.getTransaction().rollback();
+		}
+	}
 
 	/** * gerCurrentSession 会自动关闭session，使用的是当前的session事务 * * @return */
 	public Session getSession() {
@@ -37,85 +77,81 @@ public class BaseDaoImpl implements BaseDao {
 
 	/** * 根据 id 查询信息 * * @param id * @return */
 	public <T> T load(Class<T> c, int id) {
-		Session session = getSession();
-		return session.get(c, id);
+		return this.getEntityManager().find(c, id);
 	}
 
 	/** * 获取所有信息 * * @param c * * @return */
 
 	public <T> List<T> getAllList(Class<T> c) {
-		String hql = "from " + c.getName() + " order by id desc";
-		Session session = getSession();
-		return session.createQuery(hql).list();
+		CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<T> query = builder.createQuery(c);
 
+		Root<T> root = query.from(c);
+		query.select(query.from(c)).orderBy(builder.desc(root.get("id")));
+
+		return this.getEntityManager().createQuery(query).getResultList();
 	}
 
 	/** * 获取总数量 * * @param c * @return */
 
 	public long getTotalCount(Class<?> c) {
-		try (Session session = getNewSession()) {
-			String hql = "select count(*) from " + c.getName();
-			Long count = (Long) session.createQuery(hql).uniqueResult();
-			return count != null ? count.longValue() : 0;
-		}
+		CriteriaBuilder builder = this.getEntityManager().getCriteriaBuilder();
+		CriteriaQuery<Long> query = builder.createQuery(Long.class);
+		query.select(builder.count(query.from(c)));
+
+		return this.getEntityManager().createQuery(query).getSingleResult();
 	}
 
 	/** * 保存 * * @param bean * */
 	public void save(Object bean) {
-		try (Session session = getNewSession()) {
-			Transaction tx = session.beginTransaction();
-			session.save(bean);
-			session.flush();
-			session.clear();
-			tx.commit();
-		}
+		this.transcaction(em -> em.merge(bean));
 	}
 
 	/** * 更新 * * @param bean * */
 	public void update(Object bean) {
-		try (Session session = getNewSession()) {
-			session.update(bean);
-			session.flush();
-			session.clear();
-		}
+		this.transcaction(em -> em.merge(bean));
 	}
 
 	/** * 删除 * * @param bean * */
 	public void delete(Object bean) {
-		try (Session session = getNewSession()) {
-			session.delete(bean);
-			session.flush();
-			session.clear();
-		}
+		this.transcaction(em -> em.remove(bean));
 	}
 
 	/** * 根据ID删除 * * @param c 类 * * @param id ID * */
 	public void delete(Class<?> c, Serializable id) {
-		try (Session session = getNewSession()) {
-			Transaction tx = session.beginTransaction();
-			Object obj = session.get(c, id);
-			session.delete(obj);
-			tx.commit();
-			flush();
-			clear();
-		}
+		this.transcaction(em -> em.remove(em.find(c, id)));
 	}
 
 	/** * 批量删除 * * @param c 类 * * @param ids ID 集合 * */
 	public void delete(Class<?> c, Serializable... ids) {
-		for (Serializable id : ids) {
-			Object obj = getSession().get(c, id);
-			if (obj != null) {
-				getSession().delete(obj);
+		this.transcaction(em -> {
+			for (Serializable id : ids) {
+				em.remove(em.find(c, id));
 			}
-		}
+		});
 	}
 
 	// 根据HQL语句进行查询
+	@SuppressWarnings({ "unchecked", "deprecation" })
 	public <T> List<T> find(String queryString) {
 		try (Session session = getNewSession()) {
 			return session.createQuery(queryString).list();
 		}
 	}
 
+	public <T> List<T> find(Class<T> type, Map<String, Object> columnValuePairs) {
+		EntityManager em = this.getEntityManager();
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<T> query = builder.createQuery(type);
+		Root<T> root = query.from(type);
+
+		Predicate condition = builder.and(
+				columnValuePairs.entrySet().stream()
+						.map(p -> builder.equal(root.get(p.getKey()), p.getValue()))
+						.toArray(Predicate[]::new));
+
+		query.select(root).where(condition);
+
+		return em.createQuery(query).getResultList();
+	}
 }

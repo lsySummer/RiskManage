@@ -2,11 +2,10 @@ package edu.nju.dao.impl;
 
 import java.util.List;
 
-import org.hibernate.Session;
-import org.hibernate.criterion.Restrictions;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.nju.ParamMap;
 import edu.nju.dao.BaseDao;
 import edu.nju.dao.UserDao;
 import edu.nju.model.User;
@@ -27,22 +26,20 @@ public class UserDaoImpl implements UserDao {
 			baseDao.save(u);
 			return u;
 		} catch (Exception e) {
+//			e.printStackTrace();
 			return null;
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public User login(String username, String password, String role) {
-		try (Session session = baseDao.getNewSession()) {			
-			List<User> result = session.createCriteria(User.class)
-					.add(Restrictions.eq("username", username))
-					.add(Restrictions.eq("password", password))
-					.list();
-			
-			if (!result.isEmpty()) {
-				return result.get(0);
-			}
+		ParamMap map = new ParamMap("username", username)
+				.append("password", password)
+				.append("role", role);
+		List<User> result = this.baseDao.find(User.class, map);
+		if (!result.isEmpty()) {
+			return result.get(0);
+		} else {
 			return null;
 		}
 	}

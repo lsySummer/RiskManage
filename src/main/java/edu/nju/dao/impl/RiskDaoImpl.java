@@ -3,10 +3,10 @@ package edu.nju.dao.impl;
 import java.util.Date;
 import java.util.List;
 
-import org.hibernate.Session;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.nju.ParamMap;
 import edu.nju.dao.BaseDao;
 import edu.nju.dao.RiskDao;
 import edu.nju.model.RiskItem;
@@ -21,8 +21,8 @@ public class RiskDaoImpl implements RiskDao {
 	public boolean add(RiskItem risk) {
 		try {
 			baseDao.save(risk);
-			int id=risk.getId();
-			RiskState state=new RiskState();
+			int id = risk.getId();
+			RiskState state = new RiskState();
 			state.setRid(id);
 			state.setCreateTime(new Date());
 			state.setDetail("建立风险条目");
@@ -30,7 +30,7 @@ public class RiskDaoImpl implements RiskDao {
 			addState(state);
 			return true;
 		} catch (Exception e) {
-//			e.printStackTrace();
+			// e.printStackTrace();
 		}
 		return false;
 	}
@@ -41,7 +41,7 @@ public class RiskDaoImpl implements RiskDao {
 			baseDao.delete(RiskItem.class, id);
 			return true;
 		} catch (Exception e) {
-//			e.printStackTrace();
+			// e.printStackTrace();
 			return false;
 		}
 	}
@@ -52,7 +52,7 @@ public class RiskDaoImpl implements RiskDao {
 			baseDao.update(risk);
 			return true;
 		} catch (Exception e) {
-//			e.printStackTrace();
+			// e.printStackTrace();
 			return false;
 		}
 	}
@@ -75,7 +75,7 @@ public class RiskDaoImpl implements RiskDao {
 			baseDao.save(state);
 			return true;
 		} catch (Exception e) {
-//			e.printStackTrace();
+			// e.printStackTrace();
 			return false;
 		}
 	}
@@ -91,34 +91,39 @@ public class RiskDaoImpl implements RiskDao {
 		return state;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<RiskItem> getSubmitItem(int userId) {
-		String str = "from RiskItem s where s.submitterId=?";
-		Session session = baseDao.getNewSession();
-		List<RiskItem> result = session.createQuery(str)
-				.setParameter(0, userId).list();
-		return result;
+		return this.baseDao.find(
+				RiskItem.class,
+				new ParamMap("submitterid", userId));
+
+		// String str = "from RiskItem s where s.submitterId=?";
+		// Session session = baseDao.getNewSession();
+		// List<RiskItem> result = session.createQuery(str)
+		// .setParameter(0, userId).list();
+		// return result;
 	};
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<RiskState> getSubmitState(int riskId) {
-		String str = "from RiskState s where s.rid=?";
-		Session session = baseDao.getNewSession();
-		List<RiskState> result = session.createQuery(str)
-				.setParameter(0, riskId).list();
-		return result;
+		return this.baseDao.find(RiskState.class, new ParamMap("rid", riskId));
+		// String str = "from RiskState s where s.rid=?";
+		// Session session = baseDao.getNewSession();
+		// List<RiskState> result = session.createQuery(str)
+		// .setParameter(0, riskId).list();
+		// return result;
 	};
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<RiskItem> getFollowItem(int userId) {
-		String str = "from RiskItem s where s.followerId=?";
-		Session session = baseDao.getNewSession();
-		List<RiskItem> result = session.createQuery(str)
-				.setParameter(0, userId).list();
-		return result;
+		return this.baseDao.find(
+				RiskItem.class,
+				new ParamMap("followerId", userId));
+		// String str = "from RiskItem s where s.followerId=?";
+		// Session session = baseDao.getNewSession();
+		// List<RiskItem> result = session.createQuery(str)
+		// .setParameter(0, userId).list();
+		// return result;
 	};
 
 }

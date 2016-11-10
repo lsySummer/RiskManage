@@ -88,8 +88,7 @@ public class RiskDaoImpl implements RiskDao {
 
 	@Override
 	public RiskState getStateById(int id) {
-		RiskState state = baseDao.load(RiskState.class, id);
-		return state;
+		return baseDao.load(RiskState.class, id);
 	}
 
 	@Override

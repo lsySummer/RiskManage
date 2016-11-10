@@ -6,7 +6,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.nju.Log;
-import edu.nju.MessageException;
 import edu.nju.ParamMap;
 import edu.nju.dao.BaseDao;
 import edu.nju.dao.UserDao;
@@ -20,19 +19,15 @@ public class UserDaoImpl implements UserDao {
 
 	@Override
 	public User register(String username, String password, String role) {
-		boolean isExisted = !this.baseDao.find(User.class, new ParamMap("username", username)).isEmpty();
-		if (isExisted) {
-			throw new MessageException("用户名已存在");
-		}
-		try {
+		boolean notExisted = this.baseDao.find(User.class, new ParamMap("username", username)).isEmpty();
+		if (notExisted) {
 			User u = new User();
 			u.setUsername(username);
 			u.setPassword(password);
 			u.setRole(role);
 			baseDao.save(u);
 			return u;
-		} catch (Exception e) {
-			Log.log(e);
+		} else {
 			return null;
 		}
 	}

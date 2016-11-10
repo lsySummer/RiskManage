@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import edu.nju.MessageException;
+import edu.nju.Log;
 import edu.nju.model.User;
 import edu.nju.service.RiskService;
 import edu.nju.service.UserService;
@@ -43,16 +43,17 @@ public class UserAction extends BaseAction {
 
 			User user = userService.register(username, password, role);
 			if (user == null) {
-				return ERROR;
+				request.setAttribute("message", "用户名已存在");
+				return "repeat";
 			} else {
 				List<User> uList = userService.showAll();
 				request.setAttribute("uList", uList);
 				session.put("user", user);
 				return SUCCESS;
 			}
-		} catch (MessageException e) {
-			request.setAttribute("message", e.getMessage());
-			return "repeat";
+		} catch (Exception e) {
+			Log.log(e);
+			return ERROR;
 		}
 	}
 }

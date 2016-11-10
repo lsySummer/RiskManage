@@ -15,7 +15,6 @@ public interface RiskService {
 	public boolean modify(RiskItem risk);
 	public List<RiskItem> show();
 	public List<RiskItem> find(String keyword);
-	public RiskItem getItemById(int id);
 	
 	//风险状态增、查
 	public boolean addState(RiskState state);//跟踪者更新自己跟踪的某条风险条目的状态

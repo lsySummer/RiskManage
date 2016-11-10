@@ -11,7 +11,6 @@ import edu.nju.dao.BaseDao;
 import edu.nju.dao.RiskDao;
 import edu.nju.model.RiskItem;
 import edu.nju.model.RiskState;
-import edu.nju.model.User;
 
 @Repository
 public class RiskDaoImpl implements RiskDao {
@@ -31,7 +30,7 @@ public class RiskDaoImpl implements RiskDao {
 			addState(state);
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 		}
 		return false;
 	}
@@ -42,7 +41,7 @@ public class RiskDaoImpl implements RiskDao {
 			baseDao.delete(RiskItem.class, id);
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			return false;
 		}
 	}
@@ -53,24 +52,21 @@ public class RiskDaoImpl implements RiskDao {
 			baseDao.update(risk);
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
 			return false;
 		}
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<RiskItem> show() {
 		return baseDao.getAllList(RiskItem.class);
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<RiskItem> find(String keyword) {
 		String str = "from RiskItem s where s.content like \'%" + keyword
 				+ "%\'";
-		List<RiskItem> list = baseDao.find(str);
-		return list;
+		return baseDao.find(str);
 	}
 
 	@Override
@@ -79,12 +75,11 @@ public class RiskDaoImpl implements RiskDao {
 			baseDao.save(state);
 			return true;
 		} catch (Exception e) {
-			e.printStackTrace();
+//			e.printStackTrace();
+			return false;
 		}
-		return false;
 	}
 
-	@SuppressWarnings("unchecked")
 	@Override
 	public List<RiskState> getAllState() {
 		return baseDao.getAllList(RiskState.class);
@@ -92,7 +87,7 @@ public class RiskDaoImpl implements RiskDao {
 
 	@Override
 	public RiskState getStateById(int id) {
-		RiskState state = (RiskState) baseDao.load(RiskState.class, id);
+		RiskState state = baseDao.load(RiskState.class, id);
 		return state;
 	}
 
@@ -109,7 +104,7 @@ public class RiskDaoImpl implements RiskDao {
 	@SuppressWarnings("unchecked")
 	@Override
 	public List<RiskState> getSubmitState(int riskId) {
-		String str = "from RiskState s where s.rid=? order by id desc";
+		String str = "from RiskState s where s.rid=?";
 		Session session = baseDao.getNewSession();
 		List<RiskState> result = session.createQuery(str)
 				.setParameter(0, riskId).list();
@@ -124,12 +119,6 @@ public class RiskDaoImpl implements RiskDao {
 		List<RiskItem> result = session.createQuery(str)
 				.setParameter(0, userId).list();
 		return result;
-	}
-
-	@Override
-	public RiskItem getItemById(int id) {
-		RiskItem state = (RiskItem) baseDao.load(RiskItem.class, id);
-		return state;
 	};
 
 }

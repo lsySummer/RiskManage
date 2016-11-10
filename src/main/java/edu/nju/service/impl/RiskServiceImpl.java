@@ -71,10 +71,5 @@ public class RiskServiceImpl implements RiskService{
 		@Override
 	public boolean addState(RiskState state){
 		return riskDao.addState(state);
-	}
-
-		@Override
-		public RiskItem getItemById(int id) {
-			return riskDao.getItemById(id);
-		};
+	};
 }

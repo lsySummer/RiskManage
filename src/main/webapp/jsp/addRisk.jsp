@@ -1,6 +1,6 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
-    pageEncoding="UTF-8"%>
-     <%@ taglib prefix="s" uri="/struts-tags"%>
+	pageEncoding="UTF-8"%>
+<%@ taglib prefix="s" uri="/struts-tags"%>
 <!DOCTYPE html PUBLIC "-//W3C//DTD HTML 4.01 Transitional//EN" "http://www.w3.org/TR/html4/loose.dtd">
 <html>
 <head>
@@ -24,83 +24,77 @@
 		<div class="smallInfo">
 			<b>Risk Navigation</b>
 		</div>
-		<div style="width: 20%; border: 1px solid #999999;; float: left">
-			<s:form action="toState" method="post"
-				name='toHomework'>
-				<ul class="nav nav-pills nav-stacked">
-					<li class="active"><a>风险提交</a></li>
-					<li><a href="javascript:document.toHomework.submit();">风险跟踪</a></li>
-				</ul>
-			</s:form>
+		<div class="col-sm-2">
+			<ul class="nav nav-pills nav-stacked">
+				<li class="active"><a>风险提交</a></li>
+				<li><a href="toState">风险跟踪</a></li>
+			</ul>
 		</div>
 
 		<div class="bigInfo">
 			<b>Risk Infomation</b>
 		</div>
 
-	<s:form class="form-horizontal" action="addRisk" method="post">
-	<div class="control-group">
-		<label class="col-md-2 control-label" for="rname">风险名称</label>
-		<div class="col-md-10">
-			<input class="form-control" type="text" name="rname">
-		</div>
-		<label class="col-md-2 control-label" for="rcontent">风险内容</label>
-		<div class="col-md-10">
-			<input class="form-control" type="text" name="rcontent">
-		</div>
-		<label class="col-md-2 control-label" for="rpossible">风险可能</label>
-		<div class="col-md-10">
-			<input class="form-control" type="text" name="rpossible">
-		</div>
-		<label class="col-md-2 control-label" for="rinfluence">风险程度</label>
-		<div class="col-md-10">
-			<input class="form-control" type="text" name="rinfluence">
-		</div>
-		<label class="col-md-2 control-label" for="rtrig">风险触发</label>
-		<div class="col-md-10">
-			<input class="form-control" type="text" name="rtrig">
-		</div>
-		<label class="col-md-2 control-label" for="rtrig">负责跟踪</label>
-		<div class="col-md-10">
-			<input class="form-control" type="text" name="rtrig">
-		</div>
-	</div>
-		<div
-			style="width: 75%; border: 1px solid #999999; padding: 1% 1%; margin-top: -20px; margin-left: 5%; float: left">
-			<br /> <input type="hidden" id="courseId" value=名字 />
-			<input type="hidden" id="endD" value='名字' /> <input
-				type="hidden" id="uname" /> <span class="infoTxt"  style="float: left; display: block"><b>风险名称：</b></span>
-			<textarea style="width: 550px; height: 30px" id="rname" name="rname"></textarea><br />
-			<br />
-			<span class="infoTxt"  style="float: left; display: block"><b>风险内容：</b></span>
-			<textarea style="width: 550px; height: 50px" id="rcontent" name="rcontent"></textarea><br />
-			<br />
-			 <span class="infoTxt"  style="float: left; display: block"><b>风险可能： </b></span> 
-			 <textarea style="width: 550px; height: 30px" id="rpossible" name="rpossible"></textarea><br />
-			<br /> <span class="infoTxt"  style="float: left; display: block"><b>影响程度：</b></span> 
-			<textarea style="width: 550px; height: 30px" id="rinfluence" name="rinfluence"></textarea><br />
-			<br />
-			 <span class="infoTxt" style="float: left; display: block"><b>风险触发：</b></span>
-			<textarea style="width: 550px; height: 30px" id="rtrig" name="rtrig"></textarea>
+		<s:form cssClass="col-sm-9 form-horizontal" action="addRisk"
+			method="post">
+			<div>
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="rname">风险名称</label>
+					<div class="col-sm-10">
+						<input class="form-control" type="text" id="rname" name="rname">
+					</div>
+				</div>
 
-			<div style="width: 800px; float: left; margin-top: 2%">
-				<span class="infoTxt"
-					style="vertical-align: top; display: block; float: left"><b>负责跟踪：</b></span>
-						<select class="form-control" name="folSelect"
-							id="termSelect" style="margin-top: 1%; width: 150px; float: left">
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="rcontent">风险内容</label>
+					<div class="col-sm-10">
+						<input class="form-control" type="text" id="rcontent"
+							name="rcontent">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="rpossible">风险可能</label>
+					<div class="col-sm-10">
+						<input class="form-control" type="text" id="rpossible"
+							name="rpossible">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="rinfluence">风险程度</label>
+					<div class="col-sm-10">
+						<input class="form-control" type="text" id="rinfluence"
+							name="rinfluence">
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="rtrig">风险触发</label>
+					<div class="col-sm-10">
+						<textarea class="form-control" id="rtrig" name="rtrig" rows="3"></textarea>
+					</div>
+				</div>
+
+				<div class="form-group">
+					<label class="col-sm-2 control-label" for="folSelect">负责跟踪</label>
+					<div class="col-sm-10">
+						<select class="form-control" id="folSelect" name="folSelect">
 							<s:iterator value="#request.uList">
-								<option value='<s:property value="id" />'><s:property
-										value="username" /></option>
+								<option value='<s:property value="id" />'>
+									<s:property value="username" />
+								</option>
 							</s:iterator>
 						</select>
-			</div>
+					</div>
+				</div>
 
-
-			<div
-				style="width: 800px; float: left; margin-top: 1%; text-align: center">
-				<button class="btn btn-info" id="save" type="submit">添加</button>
+				<div class="form-group">
+					<div class="col-sm-offset-2 col-sm-10">
+						<button class="btn btn-default" id="save" type="submit">添加</button>
+					</div>
+				</div>
 			</div>
-		</div>
 		</s:form>
 
 

@@ -26,12 +26,12 @@ public class UserAction extends BaseAction {
 		User user = userService.login(username, password, role);
 		if (user == null) {
 			request.setAttribute("error", "用户名或密码错误");
-			return "error";
+			return ERROR;
 		} else {
 			List<User> uList = userService.showAll();
 			request.setAttribute("uList", uList);
 			session.put("user", user);
-			return "success";
+			return SUCCESS;
 		}
 	}
 
@@ -43,12 +43,12 @@ public class UserAction extends BaseAction {
 
 			User user = userService.register(username, password, role);
 			if (user == null) {
-				return "error";
+				return ERROR;
 			} else {
 				List<User> uList = userService.showAll();
 				request.setAttribute("uList", uList);
 				session.put("user", user);
-				return "success";
+				return SUCCESS;
 			}
 		} catch (MessageException e) {
 			request.setAttribute("message", e.getMessage());

@@ -19,7 +19,7 @@ public class RiskAction extends BaseAction {
 	RiskService riskService;
 	@Autowired
 	UserService userService;
-
+	
 	public String add() {
 		String name = request.getParameter("rname");
 		String content = request.getParameter("rcontent");
@@ -48,16 +48,16 @@ public class RiskAction extends BaseAction {
 			List<RiskItem> rlist = riskService.getSubmitItem(user.getId());
 			request.setAttribute("rList", rlist);
 			request.setAttribute("type", 0);
-			return "success";
+			return SUCCESS;
 		} else {
-			return "error";
+			return ERROR;
 		}
 	}
 
 	public String toRisk() {
 		List<User> uList = userService.showAll();
 		request.setAttribute("uList", uList);
-		return "success";
+		return SUCCESS;
 	}
 
 	public String toState() {
@@ -71,7 +71,7 @@ public class RiskAction extends BaseAction {
 		List<RiskItem> rList = riskService.getFollowItem(u.getId());
 		request.setAttribute("rList", rList);
 		request.setAttribute("type", 1);
-		return "success";
+		return SUCCESS;
 	}
 
 	public String showState() {
@@ -81,7 +81,7 @@ public class RiskAction extends BaseAction {
 		request.setAttribute("itemId", item.getId());
 		List<RiskState> slist = riskService.getState(id);
 		request.setAttribute("slist", slist);
-		return "success";
+		return SUCCESS;
 	}
 
 	public String addState() {
@@ -99,7 +99,7 @@ public class RiskAction extends BaseAction {
 		request.setAttribute("slist", slist);
 		request.setAttribute("itemName", item.getName());
 		request.setAttribute("itemId", id);
-		return "success";
+		return SUCCESS;
 	}
 
 	public String riskType() {
@@ -109,7 +109,7 @@ public class RiskAction extends BaseAction {
 			request.setAttribute("error", "未登录或登录失效，请重新登录");
 			return "login";
 		}
-		if (type.equals("0")) {
+		if ("0".equals(type)) {
 			List<RiskItem> rlist = riskService.getSubmitItem(user.getId());
 			request.setAttribute("rList", rlist);
 			request.setAttribute("type", 0);
@@ -118,7 +118,7 @@ public class RiskAction extends BaseAction {
 			request.setAttribute("rList", rlist);
 			request.setAttribute("type", 1);
 		}
-		return "success";
+		return SUCCESS;
 	}
 
 }

@@ -9,10 +9,10 @@ public class ParamMap extends HashMap<String, Object> implements Map<String, Obj
 	private static final long serialVersionUID = 1L;
 
 	public ParamMap() {
+		super();
 	}
 
 	public ParamMap(String key, Object value) {
-		super();
 		this.put(key, value);
 	}
 

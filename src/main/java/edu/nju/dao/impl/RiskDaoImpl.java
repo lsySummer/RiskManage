@@ -6,6 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
+import edu.nju.Log;
 import edu.nju.ParamMap;
 import edu.nju.dao.BaseDao;
 import edu.nju.dao.RiskDao;
@@ -30,9 +31,9 @@ public class RiskDaoImpl implements RiskDao {
 			addState(state);
 			return true;
 		} catch (Exception e) {
-			// e.printStackTrace();
+			Log.log(e);
+			return false;
 		}
-		return false;
 	}
 
 	@Override
@@ -41,7 +42,7 @@ public class RiskDaoImpl implements RiskDao {
 			baseDao.delete(RiskItem.class, id);
 			return true;
 		} catch (Exception e) {
-			// e.printStackTrace();
+			Log.log(e);
 			return false;
 		}
 	}
@@ -52,7 +53,7 @@ public class RiskDaoImpl implements RiskDao {
 			baseDao.update(risk);
 			return true;
 		} catch (Exception e) {
-			// e.printStackTrace();
+			Log.log(e);
 			return false;
 		}
 	}
@@ -75,7 +76,7 @@ public class RiskDaoImpl implements RiskDao {
 			baseDao.save(state);
 			return true;
 		} catch (Exception e) {
-			// e.printStackTrace();
+			Log.log(e);
 			return false;
 		}
 	}
@@ -96,34 +97,18 @@ public class RiskDaoImpl implements RiskDao {
 		return this.baseDao.find(
 				RiskItem.class,
 				new ParamMap("submitterId", userId));
-
-		// String str = "from RiskItem s where s.submitterId=?";
-		// Session session = baseDao.getNewSession();
-		// List<RiskItem> result = session.createQuery(str)
-		// .setParameter(0, userId).list();
-		// return result;
-	};
+	}
 
 	@Override
 	public List<RiskState> getSubmitState(int riskId) {
 		return this.baseDao.find(RiskState.class, new ParamMap("rid", riskId));
-		// String str = "from RiskState s where s.rid=?";
-		// Session session = baseDao.getNewSession();
-		// List<RiskState> result = session.createQuery(str)
-		// .setParameter(0, riskId).list();
-		// return result;
-	};
+	}
 
 	@Override
 	public List<RiskItem> getFollowItem(int userId) {
 		return this.baseDao.find(
 				RiskItem.class,
 				new ParamMap("followerId", userId));
-		// String str = "from RiskItem s where s.followerId=?";
-		// Session session = baseDao.getNewSession();
-		// List<RiskItem> result = session.createQuery(str)
-		// .setParameter(0, userId).list();
-		// return result;
 	}
 
 	@Override

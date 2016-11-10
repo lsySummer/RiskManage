@@ -12,7 +12,7 @@
 <title>Risk Manage System</title>
 <script type="text/javascript">
 	var msg = "${requestScope.error}";
-	if (!msg) {
+	if (msg) {
 		alert(msg);
 	}
 </script>

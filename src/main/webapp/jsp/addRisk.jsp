@@ -38,7 +38,33 @@
 			<b>Risk Infomation</b>
 		</div>
 
-	<s:form action="addRisk" method="post">
+	<s:form class="form-horizontal" action="addRisk" method="post">
+	<div class="control-group">
+		<label class="col-md-2 control-label" for="rname">风险名称</label>
+		<div class="col-md-10">
+			<input class="form-control" type="text" name="rname">
+		</div>
+		<label class="col-md-2 control-label" for="rcontent">风险内容</label>
+		<div class="col-md-10">
+			<input class="form-control" type="text" name="rcontent">
+		</div>
+		<label class="col-md-2 control-label" for="rpossible">风险可能</label>
+		<div class="col-md-10">
+			<input class="form-control" type="text" name="rpossible">
+		</div>
+		<label class="col-md-2 control-label" for="rinfluence">风险程度</label>
+		<div class="col-md-10">
+			<input class="form-control" type="text" name="rinfluence">
+		</div>
+		<label class="col-md-2 control-label" for="rtrig">风险触发</label>
+		<div class="col-md-10">
+			<input class="form-control" type="text" name="rtrig">
+		</div>
+		<label class="col-md-2 control-label" for="rtrig">负责跟踪</label>
+		<div class="col-md-10">
+			<input class="form-control" type="text" name="rtrig">
+		</div>
+	</div>
 		<div
 			style="width: 75%; border: 1px solid #999999; padding: 1% 1%; margin-top: -20px; margin-left: 5%; float: left">
 			<br /> <input type="hidden" id="courseId" value=名字 />

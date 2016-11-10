@@ -1,4 +1,4 @@
-﻿.userblock{
+.userblock{
 	float:left;margin-top:1%;height:260px;width:35%;border:1px solid silver;padding-left:3%
 }
 
@@ -41,6 +41,42 @@ height:250px;width:800px;margin:1%;border:1px solid #999999;float:left;margin-le
 .smallInfo{
 	width:20%;height:20px;background:#f5f5f5; color:#000;border:1px solid #999999;text-align:center
 	;border-bottom:0px
+}
+
+div.panel {
+	width : 100%;
+	border : 1px solid #dddddd;
+	overflow : hidden;
+}
+
+div.panel-header {
+	padding : 10px 10px;
+	background : #eeeeee;
+	overflow : hidden;
+}
+
+div.panel-header>h1, div.panel-header>h2,
+div.panel-header>h3, div.panel-header>h4,
+div.panel-header>h5, div.panel-header>h6 {
+	margin-top : 0px;
+	margin-bottom : 0px;
+}
+
+div.panel-body {
+	padding-top : 10px;
+	padding-bottom : 10px;
+	padding-left : 20px;
+	padding-right : 20px;
+	overflow : hidden;
+}
+
+table>tbody>tr>td.align-v-center,
+table>tbody>tr>th.align-v-center {
+    vertical-align: middle;
+}
+
+.wrap-word {
+	word-wrap: break-word;
 }
 
 .bigInfo{
@@ -105,4 +141,23 @@ height:250px;width:800px;margin:1%;border:1px solid #999999;float:left;margin-le
 	filter: alpha(opacity=70);
 	background:#fff;
 	opacity: 0.7;
+}
+
+.modal {
+  text-align: center;
+}
+
+@media screen and (min-width: 768px) { 
+  .modal:before {
+    display: inline-block;
+    vertical-align: middle;
+    content: " ";
+    height: 100%;
+  }
+}
+
+.modal-dialog {
+  display: inline-block;
+  text-align: left;
+  vertical-align: middle;
 }

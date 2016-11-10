@@ -12,7 +12,7 @@ node {
     stage('deploy') {
         sh "docker stop risk|| true"
         sh "docker rm risk || true"
-        sh "docker run --name risk -p 11016:8080 -d tomcat:jre8"
+        sh "docker run --name risk -p 11112:8080 -d tomcat:jre8"
         sh "docker cp target/RiskManage.war risk:/usr/local/tomcat/webapps"
     }
     stage('results') {

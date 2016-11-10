@@ -1,35 +1,37 @@
 package edu.nju.dao;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Session;
+
 
 public interface BaseDao {
 
 	public Session getSession();
 
 	public Session getNewSession();
-
+	
 	public void flush();
 
-	public void clear();
+	public void clear() ;
 
-	public <T> T load(Class<T> c, int id);
+	public Object load(Class c, int id) ;
 
-	public <T> List<T> find(String queryString);
+	 List find(String queryString);
+	 
+	public List getAllList(Class c) ;
+	
+	public List login(String queryString,String uname,String pass);
+	
+	public Long getTotalCount(Class c) ;
 
-	public <T> List<T> getAllList(Class<T> c);
+	public void save(Object bean) ;
 
-	public long getTotalCount(Class<?> c);
+	public void update(Object bean) ;
 
-	public void save(Object bean);
+	public void delete(Object bean) ;
+	
+	public void delete(Class c, int id) ;
 
-	public void update(Object bean);
-
-	public void delete(Object bean);
-
-	public void delete(Class<?> c, Serializable id);
-
-	public void delete(Class<?> c, Serializable... ids);
+	public void delete(Class c, String[] ids) ;
 }

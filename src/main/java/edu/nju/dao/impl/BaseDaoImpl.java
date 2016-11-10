@@ -1,6 +1,5 @@
 package edu.nju.dao.impl;
 
-import java.io.Serializable;
 import java.util.List;
 
 import org.hibernate.Session;
@@ -10,6 +9,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import edu.nju.dao.BaseDao;
+
 
 @Repository
 public class BaseDaoImpl implements BaseDao {
@@ -21,6 +21,7 @@ public class BaseDaoImpl implements BaseDao {
 	public Session getSession() {
 		return sessionFactory.getCurrentSession();
 	}
+	
 
 	/** * openSession 需要手动关闭session 意思是打开一个新的session * * @return */
 	public Session getNewSession() {
@@ -36,15 +37,16 @@ public class BaseDaoImpl implements BaseDao {
 	}
 
 	/** * 根据 id 查询信息 * * @param id * @return */
-	public <T> T load(Class<T> c, int id) {
+	@SuppressWarnings("rawtypes")
+	public Object load(Class c, int id) {
 		Session session = getSession();
 		return session.get(c, id);
 	}
 
 	/** * 获取所有信息 * * @param c * * @return */
 
-	public <T> List<T> getAllList(Class<T> c) {
-		String hql = "from " + c.getName() + " order by id desc";
+	public List getAllList(Class c) {
+		String hql = "from " + c.getName()+" order by id desc";
 		Session session = getSession();
 		return session.createQuery(hql).list();
 
@@ -52,70 +54,82 @@ public class BaseDaoImpl implements BaseDao {
 
 	/** * 获取总数量 * * @param c * @return */
 
-	public long getTotalCount(Class<?> c) {
-		try (Session session = getNewSession()) {
-			String hql = "select count(*) from " + c.getName();
-			Long count = (Long) session.createQuery(hql).uniqueResult();
-			return count != null ? count.longValue() : 0;
-		}
+	public Long getTotalCount(Class c) {
+		Session session = getNewSession();
+		String hql = "select count(*) from " + c.getName();
+		Long count = (Long) session.createQuery(hql).uniqueResult();
+		session.close();
+		return count != null ? count.longValue() : 0;
 	}
 
 	/** * 保存 * * @param bean * */
 	public void save(Object bean) {
-		try (Session session = getNewSession()) {
+		try {
+			Session session = getNewSession();
 			Transaction tx = session.beginTransaction();
 			session.save(bean);
 			session.flush();
 			session.clear();
 			tx.commit();
+			session.close();
+		} catch (Exception e) {
+			e.printStackTrace();
 		}
 	}
 
 	/** * 更新 * * @param bean * */
 	public void update(Object bean) {
-		try (Session session = getNewSession()) {
-			session.update(bean);
-			session.flush();
-			session.clear();
-		}
+		Session session = getNewSession();
+		session.update(bean);
+		session.flush();
+		session.clear();
+		session.close();
 	}
 
 	/** * 删除 * * @param bean * */
 	public void delete(Object bean) {
-		try (Session session = getNewSession()) {
-			session.delete(bean);
-			session.flush();
-			session.clear();
-		}
+
+		Session session = getNewSession();
+		session.delete(bean);
+		session.flush();
+		session.clear();
+		session.close();
 	}
 
 	/** * 根据ID删除 * * @param c 类 * * @param id ID * */
-	public void delete(Class<?> c, Serializable id) {
-		try (Session session = getNewSession()) {
-			Transaction tx = session.beginTransaction();
-			Object obj = session.get(c, id);
-			session.delete(obj);
-			tx.commit();
-			flush();
-			clear();
-		}
+	@SuppressWarnings({ "rawtypes" })
+	public void delete(Class c, int id) {
+		Session session = getNewSession();
+		Transaction tx = session.beginTransaction();
+		Object obj = session.get(c, id);
+		session.delete(obj);
+		flush();
+		clear();
+		tx.commit();
 	}
 
 	/** * 批量删除 * * @param c 类 * * @param ids ID 集合 * */
-	public void delete(Class<?> c, Serializable... ids) {
-		for (Serializable id : ids) {
+	@SuppressWarnings({ "rawtypes" })
+	public void delete(Class c, String[] ids) {
+		for (String id : ids) {
 			Object obj = getSession().get(c, id);
 			if (obj != null) {
 				getSession().delete(obj);
 			}
 		}
 	}
-
-	// 根据HQL语句进行查询
-	public <T> List<T> find(String queryString) {
-		try (Session session = getNewSession()) {
-			return session.createQuery(queryString).list();
-		}
-	}
+	
+	// 根据HQL语句进行查询 
+	@SuppressWarnings("unchecked") 
+	public List find(String queryString) { 
+		Session session = getNewSession();
+		return session.createQuery(queryString).list();
+	
+	} 
+	// 根据HQL语句进行查询 
+	public List login(String queryString,String uname,String pass) { 
+		Session session = getNewSession();
+		return session.createQuery(queryString).setParameter(0, uname).setParameter(1, pass).list();
+	} 
 
 }

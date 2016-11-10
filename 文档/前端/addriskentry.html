@@ -150,21 +150,36 @@ name="form1" id="form1" onsubmit="return apply1();">
 		<tr>
 			<td height="25" align="center" bgcolor="#FFF9DF">提交者</td>
 			<td align="center" bgcolor="#FFFFFF" class="t5">
-			<div align="left">
-				<input name="committer" type="text" id="itemcommitter" size="40" />
-				<script>
-				document.getElementById("itemtypes").value="";
-				</script></div></td>
+			  <div align="left">
+			<select name="submitter" id="submitter"  onchange="change_itemtypes2(this.value)" >
+			  <option value="">请选择...</option>
+			  <option value="1">用户1</option>
+			  <option value="2">用户2</option>
+			  <option value="3">用户3</option>
+	      </select>
+		   <script>
+		  document.getElementById("submitter").value="";
+		  </script></div>
+			</td>
 				<td height="25" align="center" bgcolor="#FFF9DF">跟踪者</td>
 				<td align="left" bgcolor="#FFFFFF" class="t5" colspan="3">
-					<div align="left">
-						<input name="itemname" type="text" id="itemname" size="40" />
-					</div></td>
+				  <div align="left">
+			<select name="follower" id="follower"  onchange="change_itemtypes2(this.value)" >
+			  <option value="">请选择...</option>
+			  <option value="1">用户1</option>
+			  <option value="2">用户2</option>
+			  <option value="3">用户3</option>
+	      </select>
+		   <script>
+		  document.getElementById("follower").value="";
+		  </script></div>
+		  </td>
 			</tr>
 			<tr>
 				<td height="25" align="center" bgcolor="#FFF9DF">风险内容</td>
-				<td align="left" colspan="5"><textarea rows="3" cols="206">请输入风险内容···
-				</textarea></td>
+				<td align="left" colspan="5"><textarea rows="3" cols="206">
+				</textarea></td></tr>
+				<tr><td cols="2"><input type="submit"><td></tr>
   </table>
 
  </form>

@@ -56,11 +56,30 @@
 		<property name="sessionFactory" ref="sessionFactory" />
 	</bean>
 	
-	<bean id="LoginAction" class="edu.nju.action.UserAction">
+<bean id="LoginAction" class="edu.nju.action.UserAction">
+	</bean>
+	
+	<bean id="registerAction" class="edu.nju.action.UserAction">
 	</bean>
 	
 	<bean id="riskAction" class="edu.nju.action.RiskAction">
 	</bean>
+	
+	<bean id="toRiskAction" class="edu.nju.action.RiskAction">
+	</bean>
+	
+	<bean id="toStateAction" class="edu.nju.action.RiskAction">
+	</bean>
+	
+		<bean id="showStateAction" class="edu.nju.action.RiskAction">
+	</bean>
+	
+	<bean id="addStateAction" class="edu.nju.action.RiskAction">
+	</bean>
+	
+		<bean id="riskTypeAction" class="edu.nju.action.RiskAction">
+	</bean>
+
 
 
 	<!-- 定义 Autowired 自动注入 bean -->

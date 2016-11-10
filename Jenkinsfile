@@ -12,8 +12,8 @@ node {
     stage('deploy') {
         sh "docker stop risk|| true"
         sh "docker rm risk || true"
-        sh "docker run --name risk -p 11112:8080 -d tomcat:jre8"
-        sh "docker cp target/RiskManage.war risk:/usr/local/tomcat/webapps"
+        sh "docker run --name risk -p 11112:8080 -d dordoka/tomcat"
+        sh "docker cp target/RiskManage.war risk:/opt/tomcat/webapps"
     }
     stage('results') {
         archiveArtifacts artifacts: '**/target/*.war', fingerprint: true

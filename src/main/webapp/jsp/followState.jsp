@@ -11,13 +11,13 @@
 	rel="stylesheet">
 <link href="<%=request.getContextPath()%>/css/bootstrap-responsive.css"
 	rel="stylesheet">
-<script src="<%=request.getContextPath()%>/jquery/jquery-1.8.3.min.js"></script>
-<script src="http://code.jquery.com/jquery-latest.js"></script>
+<%-- <script src="<%=request.getContextPath()%>/js/jquery.min.js"></script> --%>
+<%-- <script src="http://code.jquery.com/jquery-latest.js"></script> --%>
+<script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
 <title>Risk Manage System</title>
 <script type="text/javascript">
 	function setValue(id){
 		document.getElementById('hiddenCourseId').value=id;
-		return true;
 	}
 	</script>
 
@@ -43,7 +43,7 @@
 		<div class="col-md-10 col-sm-9">
 			<div class="panel">
 				<div class="panel-header">
-					<div class="col-md-2">
+					<div class="col-lg-2 col-lg-offset-10 col-md-3 col-md-offset-9">
 						<s:form action="riskType" method="GET" name="typeForm">
 							<select class="form-control" name="riskSelect" id="riskSelect"
 								onchange="typeForm.submit()">
@@ -59,7 +59,7 @@
 					<div class="panel-body">
 						<s:iterator value="#request.rList" id='clist'>
 							<div class="col-md-6">
-								<div class="panel">
+								<div class="panel card hover">
 									<div class="panel-header">
 										<h4 class="text-center">
 											<s:property value="name" />
@@ -94,49 +94,9 @@
 										<button class="btn btn-primary btn-block"
 											onclick="return setValue('<s:property value="id" />')">状态</button>
 										</div>
-										<!-- <div class="courseline"
-										style="margin-left: 30%; margin-top: 2%"> -->
-										<!-- </div> -->
 									</div>
 								</div>
 							</div>
-							<%-- </div>
-						<div class="courseblock" style="width: 800px; height: 250px">
-							<div class="courseInfo" style="width: 800px">
-								<s:property value="name" />
-							</div>
-							<div style="width: 700px; float: left; margin-left: 2%;">
-								<div class="courseline">
-									<span class="infoTxt"><b>风险可能：</b></span> <span class="infoTxt"><s:property
-											value="possibility" /></span>
-								</div>
-								<div class="courseline">
-									<span class="infoTxt"><b>影响程度：</b></span> <span class="infoTxt"><s:property
-											value="level" /></span>
-								</div>
-								<div class="courseline">
-									<span class="infoTxt"><b>风险触发：</b></span> <span
-										class="infoTxt"><s:property value="riskTrigger" /></span>
-								</div>
-								<div class="courseline">
-									<span class="infoTxt"><b>提交用户：</b></span> <span class="infoTxt"><s:property
-											value="subName" /></span>
-								</div>
-								<div class="courseline">
-									<span class="infoTxt"><b>负责跟踪：</b></span> <span class="infoTxt"><s:property
-											value="folName" /></span>
-								</div>
-								<div class="courseline" style="width: 600px">
-									<span class="infoTxt"><b>风险内容：</b></span> <span class="infoTxt"><s:property
-											value="content" /></span>
-								</div>
-								<div class="courseline" style="margin-left: 30%; margin-top: 2%">
-									<button class="btn btn-primary" type="submit"
-										style="margin-left: 30%"
-										onclick="return setValue('<s:property value="id" />')">显示风险状态</button>
-								</div>
-							</div>
-						</div> --%>
 						</s:iterator>
 					</div>
 				</s:form>
@@ -153,9 +113,6 @@
 
 		</div>
 	</div>
-
-
-	<script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
 
 </body>
 </html>

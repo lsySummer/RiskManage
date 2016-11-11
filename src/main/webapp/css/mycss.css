@@ -47,12 +47,25 @@ div.panel {
 	width : 100%;
 	border : 1px solid #dddddd;
 	overflow : hidden;
+	box-shadow : 0px 1.5px 5px lightgrey;
 }
 
 div.panel-header {
-	padding : 10px 10px;
+	padding : 10px 15px;
 	background : #eeeeee;
 	overflow : hidden;
+}
+
+div.card {
+	box-shadow : 0px 2px 7px lightgrey;
+}
+
+div.card.hover {
+	transition : .3s;
+}
+
+div.card.hover:hover {
+	box-shadow : 0px 3px 15px grey;
 }
 
 div.panel-header>h1, div.panel-header>h2,
@@ -65,8 +78,8 @@ div.panel-header>h5, div.panel-header>h6 {
 div.panel-body {
 	padding-top : 10px;
 	padding-bottom : 10px;
-	padding-left : 20px;
-	padding-right : 20px;
+	padding-left : 15px;
+	padding-right : 15px;
 	overflow : hidden;
 }
 
@@ -160,4 +173,8 @@ table>tbody>tr>th.align-v-center {
   display: inline-block;
   text-align: left;
   vertical-align: middle;
+}
+
+* {
+	border-radius : 0 !important;
 }

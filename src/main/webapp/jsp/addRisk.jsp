@@ -11,7 +11,7 @@
 	rel="stylesheet">
 <link href="<%=request.getContextPath()%>/css/bootstrap-responsive.css"
 	rel="stylesheet">
-<script src="<%=request.getContextPath()%>/jquery/jquery-1.8.3.min.js"></script>
+<script src="<%=request.getContextPath()%>/js/jquery.min.js"></script>
 <title>Risk Manage System</title>
 </head>
 <body>
@@ -82,7 +82,7 @@
 
 						<div class="form-group">
 							<label class="col-sm-2 control-label" for="folSelect">负责跟踪</label>
-							<div class="col-sm-10">
+							<div class="col-sm-2">
 								<select class="form-control" id="folSelect" name="folSelect">
 									<s:iterator value="#request.uList">
 										<option value='<s:property value="id" />'>
@@ -94,8 +94,8 @@
 						</div>
 
 						<div class="form-group">
-							<div class="col-sm-offset-2 col-sm-10">
-								<button class="btn btn-default" id="save" type="submit">添加</button>
+							<div class="col-sm-offset-5 col-sm-2">
+								<button class="btn btn-default btn-block" id="save" type="submit">添加</button>
 							</div>
 						</div>
 					</s:form>

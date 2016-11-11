@@ -18,7 +18,7 @@
 
 		<action name="register" class="registerAction" method="register">
 			<result name="success">/jsp/addRisk.jsp</result>
-			<result name="repeat">/jsp/register.jsp</result>
+			<result name="repeat">index.jsp</result>
 		</action>
 
 		<action name="addRisk" class="riskAction" method="add">

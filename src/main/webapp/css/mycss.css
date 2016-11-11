@@ -178,3 +178,20 @@ table>tbody>tr>th.align-v-center {
 * {
 	border-radius : 0 !important;
 }
+
+.display-table {
+	width : 100%;
+	float : none;
+	display : table;
+}
+
+.table-row {
+	width : 100%;
+	float : none;
+	display : table-row;
+}
+
+.table-cell {
+	float : none;
+	display : table-cell;
+}

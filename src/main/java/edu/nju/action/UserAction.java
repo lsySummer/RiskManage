@@ -43,7 +43,7 @@ public class UserAction extends BaseAction {
 
 			User user = userService.register(username, password, role);
 			if (user == null) {
-				request.setAttribute("message", "用户名已存在");
+				request.setAttribute("error", "用户名已存在");
 				return "repeat";
 			} else {
 				List<User> uList = userService.showAll();

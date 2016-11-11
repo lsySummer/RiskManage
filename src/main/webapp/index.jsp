@@ -6,13 +6,12 @@
 <head>
 <link href="<%=request.getContextPath()%>/css/bootstrap.css"
 	rel="stylesheet">
-<link href="<%=request.getContextPath()%>/css/bootstrap-responsive.css"
-	rel="stylesheet">
 <link href="<%=request.getContextPath()%>/css/mycss.css"
 	rel="stylesheet">
 <link href="<%=request.getContextPath()%>/css/index.css"
 	rel="stylesheet">
 <meta http-equiv="Content-Type" content="text/html; charset=UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
 <title>Risk Manage System</title>
 <script type="text/javascript">
 	var msg = "${requestScope.error}";

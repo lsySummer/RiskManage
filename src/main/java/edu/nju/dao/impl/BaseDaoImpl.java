@@ -88,7 +88,7 @@ public class BaseDaoImpl implements BaseDao {
 		CriteriaQuery<T> query = builder.createQuery(c);
 
 		Root<T> root = query.from(c);
-		query.select(query.from(c)).orderBy(builder.desc(root.get("id")));
+		query.select(root).orderBy(builder.desc(root.get("id")));
 
 		return this.getEntityManager().createQuery(query).getResultList();
 	}

@@ -1,5 +1,6 @@
 package edu.nju.model;
 
+import javax.persistence.Column;
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -11,7 +12,8 @@ import javax.persistence.Table;
 @Table(name="user")
 public class User {
 
-	private int id;
+	private int id;	
+	@Column(unique = true)
 	private String username;
 	private String password;
 	private String role;

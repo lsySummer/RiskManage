@@ -2,11 +2,11 @@ package edu.nju;
 
 import org.apache.log4j.Logger;
 
-public class Log {
+public class LOGGER {
 
 	private static Logger logger = Logger.getRootLogger();
 
-	private Log() {
+	private LOGGER() {
 	}
 
 	public static void log(Exception ex) {

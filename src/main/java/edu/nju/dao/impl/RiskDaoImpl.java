@@ -6,7 +6,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import edu.nju.Log;
+import edu.nju.LOGGER;
 import edu.nju.ParamMap;
 import edu.nju.dao.BaseDao;
 import edu.nju.dao.RiskDao;
@@ -31,7 +31,7 @@ public class RiskDaoImpl implements RiskDao {
 			addState(state);
 			return true;
 		} catch (Exception e) {
-			Log.log(e);
+			LOGGER.log(e);
 			return false;
 		}
 	}
@@ -42,7 +42,7 @@ public class RiskDaoImpl implements RiskDao {
 			baseDao.delete(RiskItem.class, id);
 			return true;
 		} catch (Exception e) {
-			Log.log(e);
+			LOGGER.log(e);
 			return false;
 		}
 	}
@@ -53,7 +53,7 @@ public class RiskDaoImpl implements RiskDao {
 			baseDao.update(risk);
 			return true;
 		} catch (Exception e) {
-			Log.log(e);
+			LOGGER.log(e);
 			return false;
 		}
 	}
@@ -76,7 +76,7 @@ public class RiskDaoImpl implements RiskDao {
 			baseDao.save(state);
 			return true;
 		} catch (Exception e) {
-			Log.log(e);
+			LOGGER.log(e);
 			return false;
 		}
 	}

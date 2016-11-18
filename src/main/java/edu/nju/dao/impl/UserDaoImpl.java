@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import edu.nju.Log;
+import edu.nju.LOGGER;
 import edu.nju.ParamMap;
 import edu.nju.dao.BaseDao;
 import edu.nju.dao.UserDao;
@@ -55,7 +55,7 @@ public class UserDaoImpl implements UserDao {
 			baseDao.delete(User.class, id);
 			return true;
 		} catch (Exception e) {
-			Log.log(e);
+			LOGGER.log(e);
 			return false;
 		}
 	}
@@ -66,7 +66,7 @@ public class UserDaoImpl implements UserDao {
 			baseDao.update(user);
 			return true;
 		} catch (Exception e) {
-			Log.log(e);
+			LOGGER.log(e);
 			return false;
 		}
 	}

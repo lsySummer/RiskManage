@@ -5,7 +5,7 @@ import java.util.List;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 
-import edu.nju.Log;
+import edu.nju.LOGGER;
 import edu.nju.model.User;
 import edu.nju.service.RiskService;
 import edu.nju.service.UserService;
@@ -52,7 +52,7 @@ public class UserAction extends BaseAction {
 				return SUCCESS;
 			}
 		} catch (Exception e) {
-			Log.log(e);
+			LOGGER.log(e);
 			return ERROR;
 		}
 	}

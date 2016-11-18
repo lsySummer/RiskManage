@@ -10,6 +10,8 @@
 	rel="stylesheet">
 <link href="<%=request.getContextPath()%>/css/mycss.css"
 	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/css/frame.css"
+	rel="stylesheet">
 <script src="<%=request.getContextPath()%>/js/bootstrap.js"></script>
 <title>Risk Manage System</title>
 <script type="text/javascript">
@@ -25,8 +27,8 @@
 			<h1 style="margin-top: -30px">Risk Manage System</h1>
 		</div>
 
-		<div class="panels-container">
-			<div class="col-md-2 col-sm-3">
+		<div>
+			<div class="navigation">
 				<div class="panel">
 					<div class="panel-header">
 						<h4>Navigation</h4>
@@ -38,18 +40,16 @@
 				</div>
 			</div>
 	
-			<div class="col-md-10 col-sm-9">
+			<div class="main">
 				<div class="panel">
 					<div class="panel-header">
-						<div class="col-lg-2 col-lg-offset-10 col-md-3 col-md-offset-9">
-							<s:form action="riskType" method="GET" name="typeForm">
-								<select class="form-control" name="riskSelect" id="riskSelect"
-									onchange="typeForm.submit()">
-									<option value='1'>我跟踪的</option>
-									<option value='0'>我提交的</option>
-								</select>
-							</s:form>
-						</div>
+						<s:form action="riskType" method="GET" name="typeForm">
+							<select class="form-control track-select" name="riskSelect" id="riskSelect"
+								onchange="typeForm.submit()">
+								<option value='1'>我跟踪的</option>
+								<option value='0'>我提交的</option>
+							</select>
+						</s:form>
 					</div>
 				</div>
 
@@ -111,6 +111,5 @@
 			</script>
 		</div>
 	</div>
-
 </body>
 </html>

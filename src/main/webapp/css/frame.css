@@ -1,0 +1,19 @@
+@CHARSET "UTF-8";
+
+@media (min-width:768px) {
+	
+	.navigation {
+		float: left;
+		width: 150px;
+		margin-right: 20px;
+	}
+	
+	.main {
+		overflow: hidden;
+	}
+	
+	.track-select {
+		float: right;
+		width: 150px;
+	}
+}

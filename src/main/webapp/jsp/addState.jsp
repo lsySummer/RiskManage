@@ -10,6 +10,8 @@
 	rel="stylesheet">
 <link href="<%=request.getContextPath()%>/css/mycss.css"
 	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/css/frame.css"
+	rel="stylesheet">
 <script src="<%=request.getContextPath()%>/jquery/jquery-1.8.3.min.js"></script>
 <script src="http://code.jquery.com/jquery-latest.js"></script>
 <title>Risk Manage System</title>
@@ -20,8 +22,8 @@
 			<h1 style="margin-top: -30px">Risk Manage System</h1>
 		</div>
 
-		<div class="panels-container">
-			<div class="col-sm-3 col-md-2">
+		<div>
+			<div class="navigation">
 				<div class="panel">
 					<div class="panel-header">
 						<h4>Navigation</h4>
@@ -34,7 +36,7 @@
 				</div>
 			</div>
 	
-			<div class="col-sm-9 col-md-10">
+			<div class="main">
 				<div class="panel">
 					<div class="panel-header">
 						<h4><%=request.getAttribute("itemName")%></h4>

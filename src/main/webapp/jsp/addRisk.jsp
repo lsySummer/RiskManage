@@ -10,6 +10,8 @@
 	rel="stylesheet">
 <link href="<%=request.getContextPath()%>/css/mycss.css"
 	rel="stylesheet">
+<link href="<%=request.getContextPath()%>/css/frame.css"
+	rel="stylesheet">
 <script src="<%=request.getContextPath()%>/js/jquery.min.js"></script>
 <title>Risk Manage System</title>
 </head>
@@ -19,8 +21,8 @@
 			<h1 style="margin-top: -30px">Risk Manage System</h1>
 		</div>
 
-		<div class="panels-container">
-			<div class="col-sm-3 col-md-2">
+		<div>
+			<div class="navigation">
 				<div class="panel">
 					<div class="panel-header">
 						<h4>Navigation</h4>
@@ -31,9 +33,8 @@
 					</ul>
 				</div>
 			</div>
-	
-	
-			<div class="col-sm-9 col-md-10">
+
+			<div class="main">
 				<div class="panel">
 					<div class="panel-header">
 						<h4>Information</h4>
@@ -42,46 +43,46 @@
 						<s:form cssClass="col-sm-12 form-horizontal" action="addRisk"
 							method="post">
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="rname">风险名称</label>
-								<div class="col-sm-10">
+								<label class="col-md-2 col-sm-3 control-label" for="rname">风险名称</label>
+								<div class="col-md-10 col-sm-9">
 									<input class="form-control" type="text" id="rname" name="rname">
 								</div>
 							</div>
 	
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="rcontent">风险内容</label>
-								<div class="col-sm-10">
+								<label class="col-md-2 col-sm-3 control-label" for="rcontent">风险内容</label>
+								<div class="col-md-10 col-sm-9">
 									<input class="form-control" type="text" id="rcontent"
 										name="rcontent">
 								</div>
 							</div>
 	
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="rpossible">风险可能</label>
-								<div class="col-sm-10">
+								<label class="col-md-2 col-sm-3 control-label" for="rpossible">风险可能</label>
+								<div class="col-md-10 col-sm-9">
 									<input class="form-control" type="text" id="rpossible"
 										name="rpossible">
 								</div>
 							</div>
 	
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="rinfluence">风险程度</label>
-								<div class="col-sm-10">
+								<label class="col-md-2 col-sm-3 control-label" for="rinfluence">风险程度</label>
+								<div class="col-md-10 col-sm-9">
 									<input class="form-control" type="text" id="rinfluence"
 										name="rinfluence">
 								</div>
 							</div>
 	
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="rtrig">风险触发</label>
-								<div class="col-sm-10">
+								<label class="col-md-2 col-sm-3 control-label" for="rtrig">风险触发</label>
+								<div class="col-md-10 col-sm-9">
 									<textarea class="form-control" id="rtrig" name="rtrig" rows="3"></textarea>
 								</div>
 							</div>
 	
 							<div class="form-group">
-								<label class="col-sm-2 control-label" for="folSelect">负责跟踪</label>
-								<div class="col-sm-2">
+								<label class="col-md-2 col-sm-3 control-label" for="folSelect">负责跟踪</label>
+								<div class="col-md-2 col-sm-9">
 									<select class="form-control" id="folSelect" name="folSelect">
 										<s:iterator value="#request.uList">
 											<option value='<s:property value="id" />'>
@@ -93,7 +94,7 @@
 							</div>
 	
 							<div class="form-group">
-								<div class="col-sm-offset-5 col-sm-2">
+								<div class="col-md-offset-5 col-md-2 col-sm-offset-4 col-sm-5">
 									<button class="btn btn-default btn-block" id="save" type="submit">添加</button>
 								</div>
 							</div>

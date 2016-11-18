@@ -19,7 +19,7 @@ import org.hibernate.SessionFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import edu.nju.Log;
+import edu.nju.LOGGER;
 import edu.nju.dao.BaseDao;
 
 @Repository
@@ -53,7 +53,7 @@ public class BaseDaoImpl implements BaseDao {
 			action.accept(em);
 			em.getTransaction().commit();
 		} catch (RollbackException e) {
-			Log.log(e);
+			LOGGER.log(e);
 			em.getTransaction().rollback();
 		}
 	}

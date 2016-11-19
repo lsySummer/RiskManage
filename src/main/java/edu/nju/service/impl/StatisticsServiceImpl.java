@@ -1,7 +1,6 @@
 package edu.nju.service.impl;
 
 import java.util.Date;
-import java.util.List;
 import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -18,7 +17,7 @@ public class StatisticsServiceImpl implements StatisticsService{
 	private StatisticsDao dao;
 	
 	@Override
-	public List<RiskItem> identifyMost(Date startTime, Date endTime) {
+	public Map<RiskItem,Integer> identifyMost(Date startTime, Date endTime) {
 		return dao.identifyMost(startTime,endTime);
 	}
 

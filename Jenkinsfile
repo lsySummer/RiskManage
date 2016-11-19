@@ -3,7 +3,7 @@ node {
         git 'https://github.com/lsySummer/RiskManage.git'
     }
     stage('QA') {
-        sh 'sonar-scanner'
+        sh '~/sonar/sonar-scanner-2.8/bin/sonar-scanner'
     }
     stage('build') {
         def mvnHome = tool 'M3'

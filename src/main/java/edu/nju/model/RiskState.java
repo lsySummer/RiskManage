@@ -15,7 +15,7 @@ public class RiskState {
 	private int pid;	//风险管理计划id
 	private int rid;	//风险条目id
 	private String state;		//状态(概括描述)
-	private int signal;	//标志位，代表风险是否发生。0代表发生，1代表不发生
+	private int ifHappen;	//标志位，代表风险是否发生。0代表发生，1代表不发生
 	private String detail;			//详细描述
 	private Date createTime;			//建立状态时间
 	
@@ -58,11 +58,12 @@ public class RiskState {
 	public void setPid(int pid) {
 		this.pid = pid;
 	}
-	public int getSignal() {
-		return signal;
+	
+	public int getIfHappen() {
+		return ifHappen;
 	}
-	public void setSignal(int signal) {
-		this.signal = signal;
+	public void setIfHappen(int ifHappen) {
+		this.ifHappen = ifHappen;
 	}
 	@Override
 	public String toString() {

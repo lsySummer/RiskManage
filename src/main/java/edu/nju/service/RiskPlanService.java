@@ -10,6 +10,7 @@ import edu.nju.vo.RiskItemVO;
 public interface RiskPlanService {
 	
 	public boolean addRiskPlan(RiskPlan plan);
+	public RiskPlan getById(int id);
 
 	//某个风险管理计划中的风险条目的增删改查(pid:风险管理计划的id,rid:风险条目id,followId:跟踪者id)
 	public boolean itemAdd(RiskItem risk, int pid,int followId);

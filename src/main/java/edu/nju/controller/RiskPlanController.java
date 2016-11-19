@@ -56,13 +56,14 @@ public class RiskPlanController extends BaseController {
     @RequestMapping(value = "/create", method = RequestMethod.POST)
     public String doCreate(
             @RequestParam("plan_name") String planName,
-            @RequestParam("project_name") String projectName,
-            @RequestParam("follower") int followerId) {
+            @RequestParam("project_name") String projectName) {
         RiskPlan plan = new RiskPlan();
         plan.setPlanName(planName);
         plan.setProjectName(projectName);
-        // TODO owner follower
+        plan.setUid(this.getUser().getId());
+
         this.riskPlanService.addRiskPlan(plan);
+
         return "redirect:/risk/plan/list";
     }
 }

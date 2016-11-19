@@ -22,7 +22,7 @@ public class UserController {
         return "index";
     }
 
-    @RequestMapping(value = "/login")
+    @RequestMapping(value = "/login", method = RequestMethod.POST)
     public String login(
             @RequestParam("username") String username,
             @RequestParam("password") String password,
@@ -37,7 +37,7 @@ public class UserController {
         }
     }
 
-    @RequestMapping(value = "/register")
+    @RequestMapping(value = "/register", method = RequestMethod.POST)
     public String register(
             @RequestParam("username") String username,
             @RequestParam("password") String password,

@@ -2,12 +2,15 @@ package edu.nju.service.impl;
 
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import edu.nju.model.RiskItem;
 import edu.nju.model.RiskPlan;
 import edu.nju.model.RiskState;
 import edu.nju.service.RiskPlanService;
 import edu.nju.vo.RiskItemVO;
 
+@Service
 public class RiskPlanServiceImpl implements RiskPlanService{
 
 	@Override

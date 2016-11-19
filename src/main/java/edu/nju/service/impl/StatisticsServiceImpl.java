@@ -3,9 +3,12 @@ package edu.nju.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.stereotype.Service;
+
 import edu.nju.model.RiskItem;
 import edu.nju.service.StatisticsService;
 
+@Service
 public class StatisticsServiceImpl implements StatisticsService{
 
 	@Override

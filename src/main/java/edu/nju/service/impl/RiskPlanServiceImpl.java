@@ -80,7 +80,7 @@ public class RiskPlanServiceImpl implements RiskPlanService{
 
 	@Override
 	public RiskPlan getById(int id) {
-		return null;
+		return riskplanDao.getById(id);
 	}
 
 }

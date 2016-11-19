@@ -113,7 +113,7 @@ public class BaseDaoImpl implements BaseDao {
 		this.transcaction(em -> {
 			if (key == null ||
 					em.find(bean.getClass(), key) == null) {
-				em.merge(bean);
+				em.persist(bean);
 			}
 		});
 	}
@@ -159,7 +159,9 @@ public class BaseDaoImpl implements BaseDao {
 
 		Predicate condition = builder.and(
 				columnValuePairs.entrySet().stream()
-						.map(p -> builder.equal(root.get(p.getKey()), p.getValue()))
+						.map(p -> p.getValue() == null
+                                ? builder.isNull(root.get(p.getKey()))
+                                : builder.equal(root.get(p.getKey()), p.getValue()))
 						.toArray(Predicate[]::new));
 
 		query.select(root).where(condition);

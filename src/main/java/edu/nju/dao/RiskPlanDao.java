@@ -33,4 +33,6 @@ public interface RiskPlanDao {
 
 	boolean importRisk(int rid, int pid, int followId);
 
+	RiskPlan getById(int id);
+
 }

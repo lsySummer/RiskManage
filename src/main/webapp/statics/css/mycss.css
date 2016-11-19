@@ -123,8 +123,8 @@ div.panel-body {
     overflow: hidden;
 }
 
-table > tbody > tr > td.align-v-center,
-table > tbody > tr > th.align-v-center {
+table > tbody > tr > td,
+table > tbody > tr > th {
     vertical-align: middle;
 }
 

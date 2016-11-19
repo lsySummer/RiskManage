@@ -23,7 +23,7 @@
     </div>
 
     <div class="panel">
-        <div class="navi-tab"><a href="${pageContext.request.contextPath}/risk/plan/list">全部列表</a></div>
+        <div class="navi-tab"><a href="${pageContext.request.contextPath}/risk/plan/">全部列表</a></div>
         <div class="navi-tab">${planInfo.planName}</div>
     </div>
 
@@ -36,7 +36,10 @@
                            href="${pageContext.request.contextPath}/risk/plan/${planInfo.id}/add_item">
                             新增风险条目
                         </a>
-                        <button class="btn btn-info">导入风险条目</button>
+                        <a class="btn btn-info"
+                           href="${pageContext.request.contextPath}/risk/plan/${planInfo.id}/import_item">
+                            导入风险条目
+                        </a>
                     </c:when>
                     <c:otherwise>
                         <h4>风险条目</h4>
@@ -80,7 +83,8 @@
                                 <span class="infoTxt wrap-word">${item.currentState}</span>
                             </div>
                             <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-                                <a class="btn btn-primary btn-block">
+                                <a class="btn btn-primary btn-block"
+                                    href="/risk/plan/${planInfo.id}/${item.rid}">
                                     详细
                                 </a>
                             </div>

@@ -2,8 +2,10 @@ package edu.nju.service.impl;
 
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import edu.nju.dao.RiskPlanDao;
 import edu.nju.model.RiskItem;
 import edu.nju.model.RiskPlan;
 import edu.nju.model.RiskState;
@@ -13,76 +15,72 @@ import edu.nju.vo.RiskItemVO;
 @Service
 public class RiskPlanServiceImpl implements RiskPlanService{
 
+	@Autowired
+	private RiskPlanDao riskplanDao;
+	
 	@Override
 	public boolean addRiskPlan(RiskPlan plan) {
-		// TODO Auto-generated method stub
-		return false;
+		return riskplanDao.addRiskPlan(plan);
 	}
 
 	@Override
 	public boolean itemAdd(RiskItem risk, int pid, int followId) {
-		// TODO Auto-generated method stub
-		return false;
+		return riskplanDao.itemAdd(risk,pid,followId);
 	}
 
 	@Override
 	public boolean itemDelete(int rid, int pid) {
-		// TODO Auto-generated method stub
-		return false;
+		return riskplanDao.itemDelete(rid,pid);
 	}
 
 	@Override
 	public boolean itemModify(RiskItem risk, int pid, int followId) {
-		// TODO Auto-generated method stub
-		return false;
+		return riskplanDao.itemModify(risk,pid,followId);
 	}
 
 	@Override
 	public List<RiskItemVO> find(String keyword, int pid) {
-		// TODO Auto-generated method stub
-		return null;
+		return riskplanDao.find(keyword,pid);
 	}
 
 	@Override
 	public List<RiskItemVO> showAll(int pid) {
-		// TODO Auto-generated method stub
-		return null;
+		return riskplanDao.showAll(pid);
 	}
 
 	@Override
 	public List<RiskPlan> getSubmitPlans(int submitterId) {
-		// TODO Auto-generated method stub
-		return null;
+		return riskplanDao.getSubmitPlans(submitterId);
 	}
 
 	@Override
 	public List<RiskPlan> getFollowPlans(int followId) {
-		// TODO Auto-generated method stub
-		return null;
+		return riskplanDao.getFollowPlans(followId);
 	}
 
 	@Override
 	public List<RiskItemVO> getFollowItem(int followId, int pid) {
-		// TODO Auto-generated method stub
-		return null;
+		return riskplanDao.getFollowItem(followId,pid);
 	}
 
 	@Override
 	public List<RiskState> getState(int pid, int rid) {
-		// TODO Auto-generated method stub
-		return null;
+		return riskplanDao.getState(pid,rid);
 	}
 
 	@Override
 	public boolean addState(RiskState state) {
-		// TODO Auto-generated method stub
-		return false;
+		return riskplanDao.addState(state);
 	}
 
 	@Override
 	public boolean importRisk(int rid, int pid, int followId) {
-		// TODO Auto-generated method stub
-		return false;
+		return riskplanDao.importRisk(rid,pid,followId);
+	}
+
+	@Override
+	public RiskPlan getById(int id) {
+		return null;
 	}
 
 }

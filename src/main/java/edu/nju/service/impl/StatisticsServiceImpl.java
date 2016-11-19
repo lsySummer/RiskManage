@@ -3,24 +3,27 @@ package edu.nju.service.impl;
 import java.util.Date;
 import java.util.List;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
+import edu.nju.dao.StatisticsDao;
 import edu.nju.model.RiskItem;
 import edu.nju.service.StatisticsService;
 
 @Service
 public class StatisticsServiceImpl implements StatisticsService{
 
+	@Autowired
+	private StatisticsDao dao;
+	
 	@Override
 	public List<RiskItem> identifyMost(Date startTime, Date endTime) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.identifyMost(startTime,endTime);
 	}
 
 	@Override
 	public List<RiskItem> happenMost(Date startTime, Date endTime) {
-		// TODO Auto-generated method stub
-		return null;
+		return dao.happenMost(startTime,endTime);
 	}
 
 }

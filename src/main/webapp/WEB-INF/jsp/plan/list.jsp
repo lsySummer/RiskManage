@@ -29,7 +29,7 @@
     <div class="main">
         <div class="panel">
             <div class="panel-header">
-                <form action="${pageContext.request.contextPath}/risk/plan/list" method="GET" name="typeForm">
+                <form action="${pageContext.request.contextPath}/risk/plan/" method="GET" name="typeForm">
                     <label for="type" class="sr-only">类型</label>
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#create_dialog">
                         <span class="glyphicon glyphicon-plus"></span>

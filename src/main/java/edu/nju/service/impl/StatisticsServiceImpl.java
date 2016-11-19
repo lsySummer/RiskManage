@@ -2,6 +2,7 @@ package edu.nju.service.impl;
 
 import java.util.Date;
 import java.util.List;
+import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -22,7 +23,7 @@ public class StatisticsServiceImpl implements StatisticsService{
 	}
 
 	@Override
-	public List<RiskItem> happenMost(Date startTime, Date endTime) {
+	public Map<RiskItem,Integer> happenMost(Date startTime, Date endTime) {
 		return dao.happenMost(startTime,endTime);
 	}
 

@@ -1,9 +1,16 @@
 package edu.nju.controller;
 
+import java.text.DateFormat;
+import java.text.ParseException;
+import java.text.SimpleDateFormat;
+import java.util.Date;
+import java.util.Map;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.RequestMapping;
 
+import edu.nju.model.RiskItem;
 import edu.nju.service.RiskPlanService;
 import edu.nju.service.RiskService;
 import edu.nju.service.StatisticsService;
@@ -83,10 +90,21 @@ public class TestController {
 		System.out.println(service.getState(31, 34));*/
 		 
 //		 service.importRisk(37, 31, 1);
-		 
+		 DateFormat format1 = new SimpleDateFormat("yyyy-MM-dd HH:mm:ss.S");  
+		 Date date = null;   
+		 Date date2=null;
+		 String str = "2016-11-15 00:00:00.0";
+		 String str1="2016-11-20 00:00:00.0";
+		 try {   
+		            date = format1.parse(str);  
+		            date2=format1.parse(str1);
+		 } catch (ParseException e) {   
+		            e.printStackTrace();   
+		 }   
 		 //@DateTimeFormat(pattern="yyyy-MM-dd HH:mm:ss.S")
-		 staService.happenMost(startTime, endTime);
-		 staService.identifyMost(startTime, endTime);
+		 Map<RiskItem,Integer> map=staService.happenMost(date, date2);
+		 
+//		 staService.identifyMost(startTime, endTime);
 	 }
 
 }

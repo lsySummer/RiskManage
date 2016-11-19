@@ -35,7 +35,7 @@ public class UserDaoImpl implements UserDao {
 	@Override
 	public User login(String username, String password, String role) {
 		ParamMap map = new ParamMap("username", username)
-				.append("password", password);
+				.append("password", password).append("role",role);
 		List<User> result = this.baseDao.find(User.class, map);
 		if (!result.isEmpty()) {
 			return result.get(0);

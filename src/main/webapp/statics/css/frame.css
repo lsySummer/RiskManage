@@ -1,19 +1,53 @@
 @CHARSET "UTF-8";
 
-@media (min-width:768px) {
-	
-	.navigation {
-		float: left;
-		width: 150px;
-		margin-right: 20px;
-	}
-	
-	.main {
-		overflow: hidden;
-	}
-	
-	.track-select {
-		float: right;
-		width: 150px;
-	}
+@media (min-width: 768px) {
+
+    .navigation {
+        float: left;
+        width: 150px;
+        margin-right: 20px;
+    }
+
+    .main {
+        overflow: hidden;
+    }
+
+    .track-select {
+        float: right;
+        width: 150px;
+    }
+}
+
+.navi-tab {
+    border-right: 1px solid lightgray;
+    border-bottom: 1px solid lightgray;
+    position: relative;
+    float: left;
+    padding: 10px 10px 10px 20px;
+    margin: 0 0 -1px 0;
+}
+
+.navi-tab:first-child {
+    padding-left: 15px;
+}
+
+.navi-tab:last-child {
+    padding-right: 15px;
+    border-right: none;
+}
+
+.navi-tab + .navi-tab::before, .navi-tab + .navi-tab::after {
+    content: "";
+    border-top: 20px solid transparent;
+    border-bottom: 20px solid transparent;
+    border-left: 10px solid lightgray;
+    position: absolute;
+    left: 0;
+    top: 0;
+    height: inherit;
+}
+
+.navi-tab + .navi-tab::after {
+    border-left-color: white;
+    left: -1px;
 }

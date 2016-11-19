@@ -1,5 +1,6 @@
 package edu.nju.controller;
 
+import edu.nju.model.RiskItem;
 import edu.nju.model.RiskPlan;
 import edu.nju.model.User;
 import edu.nju.service.RiskPlanService;
@@ -41,16 +42,16 @@ public class RiskPlanController extends BaseController {
         return new ModelAndView("plan/list", "planList", plans).addObject("type", type);
     }
 
-    @RequestMapping("/detail/{id}")
+    @RequestMapping("/{id}")
     public ModelAndView detail(@PathVariable("id") int id) {
         List<RiskItemVO> items = this.riskPlanService.showAll(id);
-        return new ModelAndView("plan/detail", "items", items);
-    }
+        RiskPlan plan = this.riskPlanService.getById(id);
 
-    @RequestMapping(value = "/create", method = RequestMethod.GET)
-    public ModelAndView create() {
-        List<User> users = this.userService.showAll();
-        return new ModelAndView("plan/create", "users", users);
+        boolean isCreator = this.getUser().getId() == plan.getUid();
+
+        return new ModelAndView("plan/detail", "items", items)
+                .addObject("planInfo", plan)
+                .addObject("isCreator", isCreator);
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
@@ -65,5 +66,34 @@ public class RiskPlanController extends BaseController {
         this.riskPlanService.addRiskPlan(plan);
 
         return "redirect:/risk/plan/list";
+    }
+
+    @RequestMapping(value = "/{id}/add_item", method = RequestMethod.GET)
+    public ModelAndView addItem(@PathVariable("id") int id) {
+        RiskPlan plan = this.riskPlanService.getById(id);
+        List<User> users = this.userService.showAll();
+        return new ModelAndView("plan/addItem", "planInfo", plan)
+                .addObject("users", users);
+    }
+
+    @RequestMapping(value = "/{id}/add_item", method = RequestMethod.POST)
+    public String doAddItem(
+            @PathVariable("id") int pid,
+            @RequestParam("name") String name,
+            @RequestParam("content") String content,
+            @RequestParam("possible") String possible,
+            @RequestParam("influence") String influence,
+            @RequestParam("trig") String trig,
+            @RequestParam("follower") int follower) {
+        RiskItem item = new RiskItem();
+        item.setName(name);
+        item.setContent(content);
+        item.setPossibility(possible);
+        item.setLevel(influence);
+        item.setRiskTrigger(trig);
+
+        this.riskPlanService.itemAdd(item, pid, follower);
+
+        return "redirect:/risk/plan/" + pid;
     }
 }

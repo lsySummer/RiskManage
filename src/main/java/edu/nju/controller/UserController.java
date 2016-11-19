@@ -1,5 +1,6 @@
 package edu.nju.controller;
 
+import edu.nju.dao.BaseDao;
 import edu.nju.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -33,7 +34,7 @@ public class UserController {
             session.setAttribute("user", user);
             return "redirect:/risk/plan/list";
         } else {
-            return "index";
+            return "redirect:/";
         }
     }
 
@@ -48,7 +49,7 @@ public class UserController {
             session.setAttribute("user", user);
             return "redirect:/risk/list";
         } else {
-            return "index";
+            return "redirect:/";
         }
     }
 }

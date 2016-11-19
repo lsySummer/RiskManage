@@ -84,7 +84,7 @@
                             </div>
                             <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
                                 <a class="btn btn-primary btn-block"
-                                    href="/risk/plan/${planInfo.id}/${item.rid}">
+                                    href="${pageContext.request.contextPath}/risk/plan/${planInfo.id}/${item.rid}">
                                     详细
                                 </a>
                             </div>

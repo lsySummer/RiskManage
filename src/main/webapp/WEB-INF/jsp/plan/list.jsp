@@ -58,7 +58,7 @@
                                     <td>${loop.index + 1}</td>
                                     <td>${plan.projectName}</td>
                                     <td>${plan.planName}</td>
-                                    <td><a class="btn btn-success" href="/risk/plan/${plan.id}">详细</a></td>
+                                    <td><a class="btn btn-success" href="${pageContext.request.contextPath}/risk/plan/${plan.id}">详细</a></td>
                                 </tr>
                             </c:forEach>
                         </c:when>

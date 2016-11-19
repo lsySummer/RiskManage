@@ -4,6 +4,8 @@ import java.util.Date;
 
 public class RiskItemVO {
 	
+	private int pid;//风险计划id
+	private int rid;//风险条目id
 	private String name;
 	private String content;//内容
 	private String possibility;//可能性
@@ -13,6 +15,18 @@ public class RiskItemVO {
 	private Date createTime;	//创建时间
 	private String followName;//跟踪者
 	
+	public int getPid() {
+		return pid;
+	}
+	public void setPid(int pid) {
+		this.pid = pid;
+	}
+	public int getRid() {
+		return rid;
+	}
+	public void setRid(int rid) {
+		this.rid = rid;
+	}
 	public String getName() {
 		return name;
 	}

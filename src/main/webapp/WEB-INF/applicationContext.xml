@@ -12,8 +12,6 @@
 
     <mvc:default-servlet-handler/>
 
-    <context:component-scan base-package="edu.nju"/>
-
     <bean id="dataSource"
           class="org.springframework.jdbc.datasource.DriverManagerDataSource">
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>

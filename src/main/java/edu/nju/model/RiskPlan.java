@@ -12,6 +12,7 @@ public class RiskPlan {
 	private int id;
 	private String projectName;
 	private String planName;
+	private int uid;	//提交者id
 
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -21,6 +22,14 @@ public class RiskPlan {
 
 	public void setId(int id) {
 		this.id = id;
+	}
+
+	public int getUid() {
+		return uid;
+	}
+
+	public void setUid(int uid) {
+		this.uid = uid;
 	}
 
 	public String getProjectName() {

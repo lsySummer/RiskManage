@@ -11,12 +11,6 @@ public interface UserService {
 	
 	public List<User> showAll();
 	
-	public boolean deleteUser(int id);
-	
-	public boolean modifyUser(User user);
-	
-	public List<User> getUser(String keyword);
-	
 	public User getById(int id);
 
 }

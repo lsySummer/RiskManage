@@ -1,6 +1,5 @@
 package edu.nju.dao.impl;
 
-import java.util.Date;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -22,13 +21,13 @@ public class RiskDaoImpl implements RiskDao {
 	public boolean add(RiskItem risk) {
 		try {
 			baseDao.save(risk);
-			int id = risk.getId();
-			RiskState state = new RiskState();
-			state.setRid(id);
-			state.setCreateTime(new Date());
-			state.setDetail("建立风险条目");
-			state.setState("新建");
-			addState(state);
+//			int id = risk.getId();
+//			RiskState state = new RiskState();
+//			state.setRid(id);
+//			state.setCreateTime(new Date());
+//			state.setDetail("建立风险条目");
+//			state.setState("新建");
+//			addState(state);
 			return true;
 		} catch (Exception e) {
 			LOGGER.log(e);

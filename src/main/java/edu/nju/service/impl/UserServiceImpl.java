@@ -31,21 +31,6 @@ public class UserServiceImpl implements UserService{
 	}
 
 	@Override
-	public boolean deleteUser(int id) {
-		return userDao.deleteUser(id);
-	}
-
-	@Override
-	public boolean modifyUser(User user) {
-		return userDao.modifyUser(user);
-	}
-
-	@Override
-	public List<User> getUser(String keyword) {
-		return userDao.getUser(keyword);
-	}
-
-	@Override
 	public User getById(int id) {
 		return userDao.getById(id);
 	}

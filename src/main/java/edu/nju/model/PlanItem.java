@@ -14,12 +14,10 @@ public class PlanItem {
 	private int id;
 	private int pid;	//风险管理计划id
 	private int rid;		//风险条目id
+	private int stateId;	//风险状态id
 	private String state;	//风险条目当前状态
 	private Date createTime;	//创建时间
-	private int submitterId;		//提交者
 	private int followerId;	//跟踪者
-	private String subName;
-	private String folName;
 	
 	@Id
 	@GeneratedValue(strategy = GenerationType.AUTO)
@@ -28,6 +26,12 @@ public class PlanItem {
 	}
 	public void setId(int id) {
 		this.id = id;
+	}
+	public int getStateId() {
+		return stateId;
+	}
+	public void setStateId(int stateId) {
+		this.stateId = stateId;
 	}
 	public int getPid() {
 		return pid;
@@ -53,30 +57,11 @@ public class PlanItem {
 	public void setCreateTime(Date createTime) {
 		this.createTime = createTime;
 	}
-	public int getSubmitterId() {
-		return submitterId;
-	}
-	public void setSubmitterId(int submitterId) {
-		this.submitterId = submitterId;
-	}
 	public int getFollowerId() {
 		return followerId;
 	}
 	public void setFollowerId(int followerId) {
 		this.followerId = followerId;
 	}
-	public String getSubName() {
-		return subName;
-	}
-	public void setSubName(String subName) {
-		this.subName = subName;
-	}
-	public String getFolName() {
-		return folName;
-	}
-	public void setFolName(String folName) {
-		this.folName = folName;
-	}
-
 	
 }

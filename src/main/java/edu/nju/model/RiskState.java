@@ -12,8 +12,8 @@ import javax.persistence.Table;
 @Table(name="risk_state")
 public class RiskState {
 	private int id;
-	private int rid;	//风险条目id
 	private int pid;	//风险管理计划id
+	private int rid;	//风险条目id
 	private String state;		//状态(概括描述)
 	private int signal;	//标志位，代表风险是否发生。0代表发生，1代表不发生
 	private String detail;			//详细描述

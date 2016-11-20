@@ -117,7 +117,7 @@ public class RiskPlanController extends BaseController {
         return "redirect:/risk/plan/" + pid;
     }
 
-    @RequestMapping(value = "/{pid}/{rid}")
+    @RequestMapping("/{pid}/{rid}")
     public ModelAndView itemStates(
             @PathVariable("pid") int pid,
             @PathVariable("rid") int rid) {
@@ -127,5 +127,16 @@ public class RiskPlanController extends BaseController {
         return new ModelAndView("plan/itemStates", "states", states)
                 .addObject(planInfoField, plan)
                 .addObject("risk", risk);
+    }
+
+    @RequestMapping(value = "/{pid}/{rid}/add_state", method = RequestMethod.POST)
+    public String addState(
+            @PathVariable("pid") int pid,
+            @PathVariable("rid") int rid,
+            RiskState state) {
+        state.setPid(pid);
+        state.setRid(rid);
+        this.riskPlanService.addState(state);
+        return "redirect:/risk/plan/" + pid + "/" + rid;
     }
 }

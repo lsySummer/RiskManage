@@ -53,23 +53,23 @@
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-2 col-sm-3 control-label" for="possible">风险可能</label>
+                        <label class="col-md-2 col-sm-3 control-label" for="possibility">风险可能</label>
                         <div class="col-md-10 col-sm-9">
-                            <input class="form-control t-m-w" type="text" id="possible" name="possible">
+                            <input class="form-control t-m-w" type="text" id="possibility" name="possibility">
                         </div>
                     </div>
 
                     <div class="form-group">
-                        <label class="col-md-2 col-sm-3 control-label" for="influence">风险程度</label>
+                        <label class="col-md-2 col-sm-3 control-label" for="level">风险程度</label>
                         <div class="col-md-10 col-sm-9">
-                            <input class="form-control t-m-w" type="text" id="influence" name="influence">
+                            <input class="form-control t-m-w" type="text" id="level" name="level">
                         </div>
                     </div>
 
                     <div class="form-group">
                         <label class="col-md-2 col-sm-3 control-label" for="trig">风险触发</label>
                         <div class="col-md-10 col-sm-9">
-                            <textarea class="form-control t-m-w" id="trig" name="trig" rows="3"></textarea>
+                            <textarea class="form-control t-m-w" id="trig" name="riskTrigger" rows="3"></textarea>
                         </div>
                     </div>
 

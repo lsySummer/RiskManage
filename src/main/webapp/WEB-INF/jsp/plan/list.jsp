@@ -98,15 +98,15 @@
                 </div>
                 <div class="modal-body">
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="plan_name">计划名称</label>
+                        <label class="col-sm-2 control-label" for="planName">计划名称</label>
                         <div class="col-sm-10">
-                            <input class="form-control" id="plan_name" name="plan_name">
+                            <input class="form-control" id="planName" name="planName">
                         </div>
                     </div>
                     <div class="form-group">
-                        <label class="col-sm-2 control-label" for="project_name">项目名称</label>
+                        <label class="col-sm-2 control-label" for="projectName">项目名称</label>
                         <div class="col-sm-10">
-                            <input class="form-control" id="project_name" name="project_name">
+                            <input class="form-control" id="projectName" name="projectName">
                         </div>
                     </div>
                 </div>

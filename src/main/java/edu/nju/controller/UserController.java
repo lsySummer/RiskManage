@@ -1,6 +1,5 @@
 package edu.nju.controller;
 
-import edu.nju.dao.BaseDao;
 import edu.nju.model.User;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
@@ -15,8 +14,12 @@ import javax.servlet.http.HttpSession;
 @Controller
 public class UserController {
 
+    private final UserService userService;
+
     @Autowired
-    private UserService userService;
+    public UserController(UserService userService) {
+        this.userService = userService;
+    }
 
     @RequestMapping("/")
     public String index() {

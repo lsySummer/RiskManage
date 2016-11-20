@@ -25,6 +25,8 @@ public class RiskPlanController extends BaseController {
 
     private final RiskService riskService;
 
+    private static final String planInfoField = "planInfo";
+
     @Autowired
     public RiskPlanController(UserService userService, RiskPlanService riskPlanService, RiskService riskService) {
         this.userService = userService;
@@ -45,12 +47,7 @@ public class RiskPlanController extends BaseController {
     }
 
     @RequestMapping(value = "/create", method = RequestMethod.POST)
-    public String doCreate(
-            @RequestParam("plan_name") String planName,
-            @RequestParam("project_name") String projectName) {
-        RiskPlan plan = new RiskPlan();
-        plan.setPlanName(planName);
-        plan.setProjectName(projectName);
+    public String doCreate(RiskPlan plan) {
         plan.setUid(this.getUser().getId());
 
         this.riskPlanService.addRiskPlan(plan);
@@ -73,7 +70,7 @@ public class RiskPlanController extends BaseController {
         }
 
         return new ModelAndView("plan/detail", "items", items)
-                .addObject("planInfo", plan)
+                .addObject(planInfoField, plan)
                 .addObject("isCreator", isCreator);
     }
 
@@ -81,26 +78,15 @@ public class RiskPlanController extends BaseController {
     public ModelAndView addItem(@PathVariable("pid") int pid) {
         RiskPlan plan = this.riskPlanService.getById(pid);
         List<User> users = this.userService.showAll();
-        return new ModelAndView("plan/addItem", "planInfo", plan)
+        return new ModelAndView("plan/addItem", planInfoField, plan)
                 .addObject("users", users);
     }
 
     @RequestMapping(value = "/{pid}/add_item", method = RequestMethod.POST)
     public String doAddItem(
             @PathVariable("pid") int pid,
-            @RequestParam("name") String name,
-            @RequestParam("content") String content,
-            @RequestParam("possible") String possible,
-            @RequestParam("influence") String influence,
-            @RequestParam("trig") String trig,
-            @RequestParam("follower") int follower) {
-        RiskItem item = new RiskItem();
-        item.setName(name);
-        item.setContent(content);
-        item.setPossibility(possible);
-        item.setLevel(influence);
-        item.setRiskTrigger(trig);
-
+            @RequestParam("follower") int follower,
+            RiskItem item) {
         this.riskPlanService.itemAdd(item, pid, follower);
 
         return "redirect:/risk/plan/" + pid;
@@ -112,7 +98,7 @@ public class RiskPlanController extends BaseController {
         List<RiskItem> items = this.riskService.show();
         List<User> users = this.userService.showAll();
 
-        return new ModelAndView("/plan/importItem", "planInfo", plan)
+        return new ModelAndView("/plan/importItem", planInfoField, plan)
                 .addObject("items", items)
                 .addObject("users", users);
     }
@@ -134,6 +120,6 @@ public class RiskPlanController extends BaseController {
         List<RiskState> states = this.riskPlanService.getState(pid, rid);
         RiskPlan plan = this.riskPlanService.getById(pid);
         return new ModelAndView("plan/itemStates", "states", states)
-                .addObject("planInfo", plan);
+                .addObject(planInfoField, plan);
     }
 }

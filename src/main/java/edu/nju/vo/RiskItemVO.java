@@ -1,5 +1,7 @@
 package edu.nju.vo;
 
+import edu.nju.model.RiskItem;
+
 import java.util.Date;
 
 public class RiskItemVO {
@@ -75,9 +77,17 @@ public class RiskItemVO {
 	public void setFollowName(String followName) {
 		this.followName = followName;
 	}
-	
-	
-	
-	
+
+
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof RiskItemVO) {
+			return this.rid == ((RiskItemVO)obj).rid;
+		} else if (obj instanceof RiskItem){
+			return this.rid == ((RiskItem)obj).getId();
+		}
+		return false;
+	}
 
 }

@@ -95,7 +95,11 @@ public class RiskPlanController extends BaseController {
     @RequestMapping(value = "/{pid}/import_item", method = RequestMethod.GET)
     public ModelAndView importItem(@PathVariable("pid") int pid) {
         RiskPlan plan = this.riskPlanService.getById(pid);
+
         List<RiskItem> items = this.riskService.show();
+        List<RiskItemVO> exists = this.riskPlanService.showAll(pid);
+        items.removeAll(exists);
+
         List<User> users = this.userService.showAll();
 
         return new ModelAndView("/plan/importItem", planInfoField, plan)

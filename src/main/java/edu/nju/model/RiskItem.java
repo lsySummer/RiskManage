@@ -1,5 +1,7 @@
 package edu.nju.model;
 
+import edu.nju.vo.RiskItemVO;
+
 import javax.persistence.Entity;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
@@ -60,5 +62,15 @@ public class RiskItem {
 	public String toString() {
 		return "RiskItem [id=" + id + ", content=" + content + ", possibility=" + possibility
 				+ ", level=" + level+ ", riskTrigger=" + riskTrigger +  "]";
+	}
+
+	@Override
+	public boolean equals(Object obj) {
+		if (obj instanceof RiskItemVO) {
+			return this.id == ((RiskItemVO)obj).getRid();
+		} else if (obj instanceof RiskItem){
+			return this.id == ((RiskItem)obj).id;
+		}
+		return false;
 	}
 }

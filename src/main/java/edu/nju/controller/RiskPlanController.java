@@ -123,7 +123,9 @@ public class RiskPlanController extends BaseController {
             @PathVariable("rid") int rid) {
         List<RiskState> states = this.riskPlanService.getState(pid, rid);
         RiskPlan plan = this.riskPlanService.getById(pid);
+        RiskItem risk = this.riskService.getById(rid);
         return new ModelAndView("plan/itemStates", "states", states)
-                .addObject(planInfoField, plan);
+                .addObject(planInfoField, plan)
+                .addObject("risk", risk);
     }
 }

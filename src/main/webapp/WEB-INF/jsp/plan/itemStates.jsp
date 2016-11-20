@@ -26,7 +26,7 @@
     <div class="panel">
         <div class="navi-tab"><a href="${pageContext.request.contextPath}/risk/plan/">全部列表</a></div>
         <div class="navi-tab"><a href="${pageContext.request.contextPath}/risk/plan/${planInfo.id}">${planInfo.planName}</a></div>
-        <div class="navi-tab"># Name</div>
+        <div class="navi-tab">${risk.name}</div>
     </div>
 
     <div class="main">

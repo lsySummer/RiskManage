@@ -32,8 +32,11 @@
                 <form action="${pageContext.request.contextPath}/risk/plan/" method="GET" name="typeForm">
                     <label for="type" class="sr-only">类型</label>
                     <button type="button" class="btn btn-success" data-toggle="modal" data-target="#create_dialog">
-                        <span class="glyphicon glyphicon-plus"></span>
+                        新建计划
                     </button>
+                    <a class="btn btn-info" href="${pageContext.request.contextPath}/risk/stat/">
+                        统计信息
+                    </a>
                     <select class="form-control track-select" name="type" id="type" onchange="typeForm.submit()">
                         <option value='0'>我提交的</option>
                         <option value='1'>我跟踪的</option>

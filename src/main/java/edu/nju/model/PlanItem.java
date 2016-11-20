@@ -2,11 +2,7 @@ package edu.nju.model;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name = "plan_item")
@@ -16,6 +12,7 @@ public class PlanItem {
 	private int rid;		//风险条目id
 	private int stateId;	//风险状态id
 	private String state;	//风险条目当前状态
+	@Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date createTime;	//创建时间
 	private int followerId;	//跟踪者
 	

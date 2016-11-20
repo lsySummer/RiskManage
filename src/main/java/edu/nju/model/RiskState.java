@@ -2,11 +2,7 @@ package edu.nju.model;
 
 import java.util.Date;
 
-import javax.persistence.Entity;
-import javax.persistence.GeneratedValue;
-import javax.persistence.GenerationType;
-import javax.persistence.Id;
-import javax.persistence.Table;
+import javax.persistence.*;
 
 @Entity
 @Table(name="risk_state")
@@ -17,6 +13,7 @@ public class RiskState {
 	private String state;		//状态(概括描述)
 	private boolean ifHappen;	//标志位，代表风险是否发生。0代表发生，1代表不发生
 	private String detail;			//详细描述
+	@Column(columnDefinition = "TIMESTAMP DEFAULT CURRENT_TIMESTAMP")
 	private Date createTime;			//建立状态时间
 	
 

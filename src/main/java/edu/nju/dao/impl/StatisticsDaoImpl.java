@@ -1,9 +1,7 @@
 package edu.nju.dao.impl;
 
 import java.util.Date;
-import java.util.HashMap;
 import java.util.List;
-import java.util.Map;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
@@ -11,77 +9,46 @@ import org.springframework.stereotype.Repository;
 import edu.nju.dao.BaseDao;
 import edu.nju.dao.StatisticsDao;
 import edu.nju.model.PlanItem;
-import edu.nju.model.RiskItem;
 import edu.nju.model.RiskState;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Tuple;
+import javax.persistence.criteria.*;
+
 @Repository
-public class StatisticsDaoImpl implements StatisticsDao{
+public class StatisticsDaoImpl implements StatisticsDao {
 
-	@Autowired
-	private BaseDao baseDao;
-	
-	@SuppressWarnings("unchecked")
-	@Override
-	public Map<RiskItem,Integer>  identifyMost(Date startTime, Date endTime) {
-		String hql = "from PlanItem where createTime >= :startTime and createTime <= :endTime";
-		List<PlanItem> planList=baseDao.getNewSession().createQuery(hql).setParameter("startTime", startTime).setParameter("endTime", endTime).getResultList();
-		int []ss=new int[planList.size()];
-		RiskItem[] itemArr=new RiskItem[planList.size()];
-		for(int i=0;i<planList.size();i++){
-			PlanItem plan=planList.get(i);
-			int rid=plan.getRid();
-			ss[i]=rid;
-			RiskItem item=baseDao.load(RiskItem.class, rid);
-			itemArr[i]=item;
-		}
-		
-		Map<RiskItem,Integer> map = new HashMap<RiskItem,Integer>();
+    @Autowired
+    private BaseDao baseDao;
 
-		for (int i = 0; i < ss.length; i++) {
-			int count = 0;
-			for (int j = 0; j < ss.length; j++) {
-				if (ss[i] == (ss[j])) {
-					count = count + 1;
-				}
-			}
-			// 为了不打印重复的，放入map中去掉重复的
-			map.put(itemArr[i], count);
-		}
-		
-		
-		return map;
-	}
+    @Override
+    public List<Tuple> identifyMost(Date startTime, Date endTime) {
+        return this.query(PlanItem.class, startTime, endTime);
+    }
 
-	@SuppressWarnings("unchecked")
-	@Override
-	public Map<RiskItem,Integer> happenMost(Date startTime, Date endTime) {
-		String hql = "from RiskState where createTime >= :startTime and createTime <= :endTime and ifHappen=0";
-		List<RiskState> stateList=baseDao.getNewSession().createQuery(hql).setParameter("startTime", startTime).setParameter("endTime", endTime).getResultList();
-		int []ss=new int[stateList.size()];
-		RiskItem[] itemArr=new RiskItem[stateList.size()];
-		for(int i=0;i<stateList.size();i++){
-			RiskState state=stateList.get(i);
-			int rid=state.getRid();
-			ss[i]=rid;
-			RiskItem item=baseDao.load(RiskItem.class, rid);
-			itemArr[i]=item;
-		}
-		
-		Map<RiskItem,Integer> map = new HashMap<RiskItem,Integer>();
+    @Override
+    public List<Tuple> happenMost(Date startTime, Date endTime) {
+        return this.query(RiskState.class, startTime, endTime);
+    }
 
-		for (int i = 0; i < ss.length; i++) {
-			int count = 0;
-			for (int j = 0; j < ss.length; j++) {
-				if (ss[i] == (ss[j])) {
-					count = count + 1;
-				}
-			}
-			// 为了不打印重复的，放入map中去掉重复的
-			map.put(itemArr[i], count);
-		}
-		
-		
-		return map;
-	}
+    private <T> List<Tuple> query(Class<T> type, Date startTime, Date endTime) {
+        EntityManager em = this.baseDao.getEntityManager();
+        CriteriaBuilder builder = em.getCriteriaBuilder();
 
+        CriteriaQuery<Tuple> query = builder.createTupleQuery();
+
+        Root<T> from = query.from(type);
+        Path<Date> createTime = from.get("createTime");
+        Path<Integer> rid = from.get("rid");
+
+        Predicate condition = builder.between(createTime, startTime, endTime);
+        Expression<Long> count = builder.count(from);
+
+        query.where(condition);
+        query.multiselect(rid, count);
+        query.groupBy(rid);
+        query.orderBy(builder.desc(count));
+
+        return em.createQuery(query).setFirstResult(0).setMaxResults(10).getResultList();
+    }
 }

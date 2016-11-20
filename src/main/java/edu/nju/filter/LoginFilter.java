@@ -34,7 +34,7 @@ public class LoginFilter implements Filter {
 		HttpSession s = req.getSession();
 		if (s.getAttribute("user") == null) {
 			HttpServletResponse resp = (HttpServletResponse) response;
-			resp.sendRedirect("/");
+			resp.sendRedirect(req.getContextPath() + "/");
 		} else {
 			chain.doFilter(request, response);
 		}

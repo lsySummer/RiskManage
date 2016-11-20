@@ -104,6 +104,8 @@
                     <button type="submit" class="btn btn-success">
                         <span class="glyphicon glyphicon-search"></span>
                     </button>
+
+                    <a href="${pageContext.request.contextPath}/risk/plan/" class="btn btn-default right-align">返回</a>
                 </form>
             </div>
             <div class="panel-body">

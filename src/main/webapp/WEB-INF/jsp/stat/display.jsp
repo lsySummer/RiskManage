@@ -91,11 +91,8 @@
                         <label class="sr-only" for="from">开始日期</label>
                         <fmt:formatDate value="${from}" pattern="yyyy-MM-dd" var="fromFmt"/>
                         <input type="date" class="form-control" id="from" name="from" value="${fromFmt}">
-                    </div>
-                    <label class="control-label">至</label>
-                    <div class="input-group">
                         <div class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
+                            至
                         </div>
                         <label class="sr-only" for="to">结束日期</label>
                         <fmt:formatDate value="${to}" pattern="yyyy-MM-dd" var="toFmt"/>

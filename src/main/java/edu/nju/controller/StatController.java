@@ -10,6 +10,7 @@ import org.springframework.web.bind.annotation.RequestParam;
 import org.springframework.web.bind.annotation.ResponseBody;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.ArrayList;
 import java.util.Calendar;
 import java.util.Date;
 import java.util.List;
@@ -37,8 +38,9 @@ public class StatController {
     @ResponseBody
     public List<StatVO> identifyMost(
             @RequestParam("type") String type,
-            @RequestParam("from") @DateTimeFormat(pattern = "yyyy-MM-dd") Date from,
-            @RequestParam("to") @DateTimeFormat(pattern = "yyyy-MM-dd") Date to) {
+            @RequestParam(value = "from", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date from,
+            @RequestParam(value = "to", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date to) {
+        if (from == null || to == null) return new ArrayList<>();
         if (type.equals("identify")) {
             return this.statService.identifyMost(from, to);
         } else {

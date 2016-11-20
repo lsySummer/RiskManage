@@ -2,6 +2,7 @@ package edu.nju.dao.impl;
 
 import java.util.ArrayList;
 import java.util.Date;
+import java.util.HashSet;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -20,7 +21,7 @@ import edu.nju.vo.RiskItemVO;
 
 @Repository
 public class RiskPlanDaoImpl implements RiskPlanDao{
-	
+
 	@Autowired
 	private BaseDao baseDao;
 	@Autowired
@@ -116,7 +117,7 @@ public class RiskPlanDaoImpl implements RiskPlanDao{
 				resultList.add(this.toVO(item, riskItem));
 			}
 		}
-		
+
 		return resultList;
 	}
 
@@ -146,12 +147,12 @@ public class RiskPlanDaoImpl implements RiskPlanDao{
 		RiskItem risk = this.baseDao.load(RiskItem.class, rid);
 		return this.toVO(plans.get(0), risk);
 	}
-	
+
 	public String getStateById(int id){
 		RiskState state=baseDao.load(RiskState.class,id);
 		return state.getState();
 	}
-	
+
 	@Override
 	public List<RiskItemVO> showAll(int pid) {
 		String hql="from PlanItem where pid="+pid;
@@ -168,10 +169,13 @@ public class RiskPlanDaoImpl implements RiskPlanDao{
 	public List<RiskPlan> getFollowPlans(int followId) {
 		List<PlanItem> list=baseDao.find(PlanItem.class, "followerId", followId);
 		List<RiskPlan> result=new ArrayList<RiskPlan>();
-		for(PlanItem item:list){
+        HashSet<Integer> added = new HashSet<>();
+        for(PlanItem item:list){
 			int pid=item.getPid();
-			RiskPlan riskPlan=baseDao.load(RiskPlan.class, pid);
-			result.add(riskPlan);
+            if (added.add(pid)) {
+                RiskPlan riskPlan=baseDao.load(RiskPlan.class, pid);
+                result.add(riskPlan);
+            }
 		}
 		return result;
 	}
@@ -218,7 +222,7 @@ public class RiskPlanDaoImpl implements RiskPlanDao{
 			state.setPid(pid);
 			state.setRid(rid);
 			baseDao.save(state);
-			
+
 			PlanItem item=new PlanItem();
 			item.setCreateTime(new Date());
 			item.setFollowerId(followId);

@@ -122,8 +122,7 @@ public class RiskPlanController extends BaseController {
             @PathVariable("id") int pid,
             @RequestParam("risk_id") int riskId,
             @RequestParam("follower") int followerId) {
-        RiskItem item = this.riskService.getById(riskId);
-        this.riskPlanService.itemAdd(item, pid, followerId);
+        this.riskPlanService.importRisk(riskId, pid, followerId);
 
         return "redirect:/risk/plan/" + pid;
     }

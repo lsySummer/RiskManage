@@ -53,9 +53,6 @@
                             导入风险条目
                         </a>
                     </c:when>
-                    <c:otherwise>
-                        <h4>风险条目</h4>
-                    </c:otherwise>
                 </c:choose>
                 <form class="right-align s-m-w" action="${pageContext.request.contextPath}/risk/plan/${planInfo.id}"
                       method="get">

@@ -90,4 +90,18 @@ public class RiskItemVO {
 		return false;
 	}
 
+	@Override
+	public int hashCode() {
+		int result = pid;
+		result = 31 * result + rid;
+		result = 31 * result + (name != null ? name.hashCode() : 0);
+		result = 31 * result + (content != null ? content.hashCode() : 0);
+		result = 31 * result + (possibility != null ? possibility.hashCode() : 0);
+		result = 31 * result + (level != null ? level.hashCode() : 0);
+		result = 31 * result + (riskTrigger != null ? riskTrigger.hashCode() : 0);
+		result = 31 * result + (currentState != null ? currentState.hashCode() : 0);
+		result = 31 * result + (createTime != null ? createTime.hashCode() : 0);
+		result = 31 * result + (followName != null ? followName.hashCode() : 0);
+		return result;
+	}
 }

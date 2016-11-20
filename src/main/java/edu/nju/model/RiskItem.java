@@ -73,4 +73,15 @@ public class RiskItem {
 		}
 		return false;
 	}
+
+	@Override
+	public int hashCode() {
+		int result = id;
+		result = 31 * result + (name != null ? name.hashCode() : 0);
+		result = 31 * result + (content != null ? content.hashCode() : 0);
+		result = 31 * result + (possibility != null ? possibility.hashCode() : 0);
+		result = 31 * result + (level != null ? level.hashCode() : 0);
+		result = 31 * result + (riskTrigger != null ? riskTrigger.hashCode() : 0);
+		return result;
+	}
 }

@@ -47,7 +47,7 @@ public class BaseDaoImpl implements BaseDao {
 		return this.emFactory.createEntityManager();
 	}
 
-	private void transcaction(Consumer<EntityManager> action) {
+	private void transaction(Consumer<EntityManager> action) {
 		EntityManager em = this.getEntityManager();
 		try {
 			em.getTransaction().begin();
@@ -110,7 +110,7 @@ public class BaseDaoImpl implements BaseDao {
 	}
 
 	public void save(Object bean, Object key) {
-		this.transcaction(em -> {
+		this.transaction(em -> {
 			if (key == null ||
 					em.find(bean.getClass(), key) == null) {
 				em.persist(bean);
@@ -120,22 +120,22 @@ public class BaseDaoImpl implements BaseDao {
 
 	/** * 更新 * * @param bean * */
 	public void update(Object bean) {
-		this.transcaction(em -> em.merge(bean));
+		this.transaction(em -> em.merge(bean));
 	}
 
 	/** * 删除 * * @param bean * */
 	public void delete(Object bean) {
-		this.transcaction(em -> em.remove(bean));
+		this.transaction(em -> em.remove(bean));
 	}
 
 	/** * 根据ID删除 * * @param c 类 * * @param id ID * */
 	public void delete(Class<?> c, Serializable id) {
-		this.transcaction(em -> em.remove(em.find(c, id)));
+		this.transaction(em -> em.remove(em.find(c, id)));
 	}
 
 	/** * 批量删除 * * @param c 类 * * @param ids ID 集合 * */
 	public void delete(Class<?> c, Serializable... ids) {
-		this.transcaction(em -> {
+		this.transaction(em -> {
 			for (Serializable id : ids) {
 				em.remove(em.find(c, id));
 			}

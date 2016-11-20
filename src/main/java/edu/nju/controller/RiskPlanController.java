@@ -13,6 +13,7 @@ import org.springframework.stereotype.Controller;
 import org.springframework.web.bind.annotation.*;
 import org.springframework.web.servlet.ModelAndView;
 
+import java.util.Calendar;
 import java.util.List;
 
 @Controller
@@ -56,7 +57,10 @@ public class RiskPlanController extends BaseController {
     }
 
     @RequestMapping("/{pid}")
-    public ModelAndView detail(@PathVariable("pid") int pid) {
+    public ModelAndView detail(@PathVariable("pid") int pid, @RequestParam(value = "search", defaultValue = "") String keyword) {
+        if (keyword.isEmpty()) {
+
+        }
         RiskPlan plan = this.riskPlanService.getById(pid);
 
         int userId = this.getUser().getId();
@@ -64,9 +68,17 @@ public class RiskPlanController extends BaseController {
 
         List<RiskItemVO> items;
         if (isCreator) {
-            items = this.riskPlanService.showAll(pid);
+            if (keyword.isEmpty()) {
+                items = this.riskPlanService.showAll(pid);
+            } else {
+                items = this.riskPlanService.find(keyword, pid);
+            }
         } else {
-            items = this.riskPlanService.getFollowItem(userId, pid);
+            if (keyword.isEmpty()) {
+                items = this.riskPlanService.getFollowItem(userId, pid);
+            } else {
+                items = this.riskPlanService.find(keyword, pid, userId);
+            }
         }
 
         return new ModelAndView("plan/detail", "items", items)
@@ -107,13 +119,40 @@ public class RiskPlanController extends BaseController {
                 .addObject("users", users);
     }
 
-    @RequestMapping(value = "/{id}/import_item", method = RequestMethod.POST)
+    @RequestMapping(value = "/{pid}/import_item", method = RequestMethod.POST)
     public String doImportItem(
-            @PathVariable("id") int pid,
+            @PathVariable("pid") int pid,
             @RequestParam("risk_id") int riskId,
             @RequestParam("follower") int followerId) {
         this.riskPlanService.importRisk(riskId, pid, followerId);
 
+        return "redirect:/risk/plan/" + pid;
+    }
+
+    @RequestMapping(value = "/{pid}/{rid}/modify", method = RequestMethod.GET)
+    public ModelAndView modifyItem(@PathVariable("pid") int pid, @PathVariable("rid") int rid) {
+        RiskPlan plan = this.riskPlanService.getById(pid);
+        RiskItemVO item = this.riskPlanService.getRiskItem(pid, rid);
+        List<User> users = this.userService.showAll();
+        return new ModelAndView("/plan/modifyItem", planInfoField, plan)
+                .addObject("itemInfo", item)
+                .addObject("users", users);
+    }
+
+    @RequestMapping(value = "/{pid}/{rid}/modify", method = RequestMethod.POST)
+    public String doModifyItem(
+            @PathVariable("pid") int pid,
+            @PathVariable("rid") int rid,
+            @RequestParam("follower") int followerId,
+            RiskItem item) {
+        item.setId(rid);
+        this.riskPlanService.itemModify(item, pid, followerId);
+        return "redirect:/risk/plan/" + pid;
+    }
+
+    @RequestMapping(value = "/{pid}/{rid}/remove", method = RequestMethod.POST)
+    public String removeItem(@PathVariable("pid") int pid, @PathVariable("rid") int rid) {
+        this.riskPlanService.itemDelete(rid, pid);
         return "redirect:/risk/plan/" + pid;
     }
 
@@ -134,8 +173,6 @@ public class RiskPlanController extends BaseController {
             @PathVariable("pid") int pid,
             @PathVariable("rid") int rid,
             RiskState state) {
-        state.setPid(pid);
-        state.setRid(rid);
         state.setCreateTime(Calendar.getInstance().getTime());
         this.riskPlanService.addState(state);
         return "redirect:/risk/plan/" + pid + "/" + rid;

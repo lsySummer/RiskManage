@@ -17,6 +17,8 @@ public interface RiskPlanService {
 	public boolean itemDelete(int rid, int pid);
 	public boolean itemModify(RiskItem risk,int pid,int followId);
 	public List<RiskItemVO> find(String keyword, int pid);
+
+	public RiskItemVO getRiskItem(int pid, int rid);
 	
 	//获得某个风险计划里的全部风险条目
 	public List<RiskItemVO> showAll(int pid);
@@ -29,7 +31,8 @@ public interface RiskPlanService {
 	
 	//获得某个人跟踪的计划中，自己负责跟踪的风险条目
 	public List<RiskItemVO> getFollowItem(int followId,int pid);
-	
+	public List<RiskItemVO> find(String keyword, int pid, int followerId);
+
 	//风险管理计划中风险状态的管理
 	public List<RiskState> getState(int pid, int rid);
 	public boolean addState(RiskState state);

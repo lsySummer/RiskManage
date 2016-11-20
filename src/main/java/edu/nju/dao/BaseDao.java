@@ -41,5 +41,7 @@ public interface BaseDao {
 
 	public void delete(Class<?> c, Serializable... ids);
 
+	public <T> List<T> find(Class<T> type, String column, Object value);
+
 	public <T> List<T> find(Class<T> type, Map<String, Object> nameValuePairs);
 }

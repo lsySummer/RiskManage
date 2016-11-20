@@ -63,9 +63,9 @@
 									</div>
 
 									<div class="form-group">
-										<button type="submit" class="btn btn-default btn-block-s"
-											onclick="login()">登录</button>
 										<button type="submit" class="btn btn-success btn-block-s"
+											onclick="login()">登录</button>
+										<button type="submit" class="btn btn-default btn-block-s"
 											onclick="register()">注册</button>
 									</div>
 								</form>

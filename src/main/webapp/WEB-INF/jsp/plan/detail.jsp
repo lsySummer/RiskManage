@@ -14,6 +14,18 @@
           rel="stylesheet">
     <script src="${pageContext.request.contextPath}/statics/js/jquery.min.js" type="text/javascript"></script>
     <script src="${pageContext.request.contextPath}/statics/js/bootstrap.min.js" type="text/javascript"></script>
+    <script>
+        $(document).ready(function () {
+            $("a").click(function () {
+                event.stopPropagation();
+            })
+        });
+        function showDeleteModal(rid) {
+            let url = "${pageContext.request.contextPath}/risk/plan/${planInfo.id}/"+ rid + "/remove";
+            $("#delete_form").attr("action", url);
+            $('#delete_item').modal('show');
+        }
+    </script>
     <title>Risk Manage System</title>
 </head>
 <body>
@@ -45,12 +57,25 @@
                         <h4>风险条目</h4>
                     </c:otherwise>
                 </c:choose>
+                <form class="right-align s-m-w" action="${pageContext.request.contextPath}/risk/plan/${planInfo.id}"
+                      method="get">
+                    <div class="input-group">
+                        <input type="text" class="form-control" name="search" placeholder="搜索关键词"
+                               value="${pageContext.request.getParameter("search")}">
+                        <span class="input-group-btn">
+                        <button type="submit" class="btn btn-default">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </span>
+                    </div>
+                </form>
             </div>
         </div>
 
         <div class="panels-container">
             <c:forEach items="${items}" var="item">
-                <div class="col-md-6 col-lg-4">
+                <div class="col-sm-6 col-lg-4"
+                     onclick="location.href='${pageContext.request.contextPath}/risk/plan/${planInfo.id}/${item.rid}'">
                     <div class="panel card hover">
                         <div class="panel-header">
                             <h4 class="text-center wrap-word">
@@ -59,35 +84,45 @@
                         </div>
                         <div class="panel-body">
                             <div class="col-sm-6">
-                                <span class="infoTxt text-black">风险可能：</span>
-                                <span class="infoTxt wrap-word">${item.possibility}</span>
+                                <label class="control-label">风险可能：</label>
+                                <span class="wrap-word">${item.possibility}</span>
                             </div>
                             <div class="col-sm-6">
-                                <span class="infoTxt text-black">影响程度：</span>
-                                <span class="infoTxt wrap-word">${item.level}</span>
+                                <label class="control-label">影响程度：</label>
+                                <span class="wrap-word">${item.level}</span>
                             </div>
                             <div class="col-sm-6">
-                                <span class="infoTxt text-black">风险触发：</span>
-                                <span class="infoTxt wrap-word">${item.possibility}</span>
+                                <label class="control-label">风险触发：</label>
+                                <span class="wrap-word">${item.riskTrigger}</span>
                             </div>
                             <div class="col-sm-6">
-                                <span class="infoTxt text-black">负责跟踪：</span>
-                                <span class="infoTxt wrap-word">${item.followName}</span>
+                                <label class="control-label">负责跟踪：</label>
+                                <span class="wrap-word">${item.followName}</span>
                             </div>
                             <div class="col-sm-12">
-                                <span class="infoTxt text-black">风险内容：</span>
-                                <span class="infoTxt wrap-word">${item.content}</span>
+                                <label class="control-label">风险内容：</label>
+                                <span class="wrap-word">${item.content}</span>
                             </div>
                             <div class="col-sm-12">
-                                <span class="infoTxt text-black">当前状态：</span>
-                                <span class="infoTxt wrap-word">${item.currentState}</span>
+                                <label class="control-label">当前状态：</label>
+                                <span class="wrap-word">${item.currentState}</span>
                             </div>
-                            <div class="col-sm-6 col-sm-offset-3 col-md-4 col-md-offset-4">
-                                <a class="btn btn-primary btn-block"
-                                   href="${pageContext.request.contextPath}/risk/plan/${planInfo.id}/${item.rid}">
-                                    详细
-                                </a>
-                            </div>
+                            <c:if test="${isCreator}">
+                                <div class="card-btn-group">
+                                    <div class="col-sm-6 card-btn">
+                                        <a class="btn btn-warning btn-block"
+                                           href="${pageContext.request.contextPath}/risk/plan/${planInfo.id}/${item.rid}/modify">
+                                            修改
+                                        </a>
+                                    </div>
+                                    <div class="col-sm-6 card-btn">
+                                        <a class="btn btn-danger btn-block"
+                                           onclick="showDeleteModal(${item.rid});">
+                                            移除
+                                        </a>
+                                    </div>
+                                </div>
+                            </c:if>
                         </div>
                     </div>
                 </div>
@@ -95,5 +130,27 @@
         </div>
     </div>
 </div>
+
+<form class="form-horizontal" id="delete_form" method="post">
+    <div class="modal fade" id="delete_item" tabindex="-1" role="dialog" aria-labelledby="移除条目">
+        <div class="modal-dialog modal-sm" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                    <h4 class="modal-title">确认</h4>
+                </div>
+                <div class="modal-body">
+                    <p>确定要移除此条目吗？</p>
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-default" data-dismiss="modal">取消</button>
+                    <button type="submit" class="btn btn-danger">移除</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</form>
 </body>
 </html>

@@ -16,6 +16,27 @@
         float: right;
         width: 150px;
     }
+
+    .right-align {
+        float: right;
+    }
+
+    .card-btn-group {
+        max-width: 300px;
+        margin: auto;
+        clear: both;
+    }
+
+    .card-btn {
+        padding-left: 5px;
+        padding-right: 5px;
+    }
+}
+
+@media (max-width: 768px) {
+    .card-btn + .card-btn {
+        margin-top: 5px;
+    }
 }
 
 .navi-tab {

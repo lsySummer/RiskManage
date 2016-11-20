@@ -19,6 +19,10 @@ public interface RiskPlanDao {
 
 	List<RiskItemVO> find(String keyword, int pid);
 
+	List<RiskItemVO> find(String keyword, int pid, int followerId);
+
+	RiskItemVO getRiskItem(int pid, int rid);
+
 	List<RiskItemVO> showAll(int pid);
 
 	List<RiskPlan> getSubmitPlans(int submitterId);

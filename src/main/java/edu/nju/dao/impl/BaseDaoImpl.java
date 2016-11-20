@@ -151,6 +151,19 @@ public class BaseDaoImpl implements BaseDao {
 		}
 	}
 
+	public <T> List<T> find(Class<T> type, String column, Object value) {
+		EntityManager em = this.getEntityManager();
+		CriteriaBuilder builder = em.getCriteriaBuilder();
+		CriteriaQuery<T> query = builder.createQuery(type);
+		Root<T> root = query.from(type);
+
+		Predicate condition = equalsOrIsNull(builder, root, column, value);
+
+		query.select(root).where(condition);
+
+		return em.createQuery(query).getResultList();
+	}
+
 	public <T> List<T> find(Class<T> type, Map<String, Object> columnValuePairs) {
 		EntityManager em = this.getEntityManager();
 		CriteriaBuilder builder = em.getCriteriaBuilder();
@@ -159,13 +172,17 @@ public class BaseDaoImpl implements BaseDao {
 
 		Predicate condition = builder.and(
 				columnValuePairs.entrySet().stream()
-						.map(p -> p.getValue() == null
-                                ? builder.isNull(root.get(p.getKey()))
-                                : builder.equal(root.get(p.getKey()), p.getValue()))
+						.map(p -> equalsOrIsNull(builder, root, p.getKey(), p.getValue()))
 						.toArray(Predicate[]::new));
 
 		query.select(root).where(condition);
 
 		return em.createQuery(query).getResultList();
+	}
+
+	private static Predicate equalsOrIsNull(CriteriaBuilder builder, Root<?> root, String column, Object value) {
+		return value == null
+				? builder.isNull(root.get(column))
+				: builder.equal(root.get(column), value);
 	}
 }

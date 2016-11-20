@@ -107,29 +107,44 @@ public class RiskPlanDaoImpl implements RiskPlanDao{
 
 	@Override
 	public List<RiskItemVO> find(String keyword, int pid) {
-		String hql0="from PlanItem where pid="+pid;
 		List<RiskItemVO> resultList=new ArrayList<RiskItemVO>();
-		List<PlanItem> planList=baseDao.find(hql0);
+		List<PlanItem> planList=baseDao.find(PlanItem.class, "pid", pid);
 		for(PlanItem item:planList){
 			int rid=item.getRid();
 			RiskItem riskItem=baseDao.load(RiskItem.class, rid);
 			if(riskItem.getName().contains(keyword)){
-				RiskItemVO vo = new RiskItemVO();
-				vo.setContent(riskItem.getContent());
-				vo.setLevel(riskItem.getLevel());
-				vo.setName(riskItem.getName());
-				vo.setPossibility(riskItem.getPossibility());
-				vo.setRid(riskItem.getId());
-				vo.setRiskTrigger(riskItem.getRiskTrigger());
-				vo.setCreateTime(item.getCreateTime());
-				vo.setCurrentState(getStateById(item.getStateId()));
-				vo.setFollowName(userDao.getById(item.getFollowerId()).getUsername());
-				vo.setPid(item.getPid());
-				resultList.add(vo);
+				resultList.add(this.toVO(item, riskItem));
 			}
 		}
 		
 		return resultList;
+	}
+
+	@Override
+	public List<RiskItemVO> find(String keyword, int pid, int followerId) {
+		List<RiskItemVO> resultList=new ArrayList<RiskItemVO>();
+		List<PlanItem> planList=baseDao.find(PlanItem.class, new ParamMap("pid", pid).append("followerId", followerId));
+		for(PlanItem item:planList){
+			int rid=item.getRid();
+			RiskItem riskItem=baseDao.load(RiskItem.class, rid);
+			if(riskItem.getName().contains(keyword)){
+				resultList.add(this.toVO(item, riskItem));
+			}
+		}
+
+		return resultList;
+	}
+
+	@Override
+	public RiskItemVO getRiskItem(int pid, int rid) {
+		List<PlanItem> plans = this.baseDao.find(PlanItem.class,"pid", pid);
+
+		if (plans.isEmpty()) {
+			return null;
+		}
+
+		RiskItem risk = this.baseDao.load(RiskItem.class, rid);
+		return this.toVO(plans.get(0), risk);
 	}
 	
 	public String getStateById(int id){
@@ -141,37 +156,17 @@ public class RiskPlanDaoImpl implements RiskPlanDao{
 	public List<RiskItemVO> showAll(int pid) {
 		String hql="from PlanItem where pid="+pid;
 		List<PlanItem> planList=baseDao.find(hql);
-		List<RiskItemVO> resultList=new ArrayList<RiskItemVO>();
-		for(PlanItem item:planList){
-			int rid=item.getRid();
-			RiskItem riskItem=baseDao.load(RiskItem.class, rid);
-			RiskItemVO vo = new RiskItemVO();
-			vo.setContent(riskItem.getContent());
-			vo.setLevel(riskItem.getLevel());
-			vo.setName(riskItem.getName());
-			vo.setPossibility(riskItem.getPossibility());
-			vo.setRid(riskItem.getId());
-			vo.setRiskTrigger(riskItem.getRiskTrigger());
-			vo.setCreateTime(item.getCreateTime());
-			vo.setCurrentState(getStateById(item.getStateId()));
-			vo.setFollowName(userDao.getById(item.getFollowerId()).getUsername());
-			vo.setPid(item.getPid());
-			resultList.add(vo);
-		}
-		return resultList;
+		return this.getVOs(planList);
 	}
 
 	@Override
 	public List<RiskPlan> getSubmitPlans(int submitterId) {
-		String hql="from RiskPlan where uid="+submitterId;
-		List<RiskPlan> list=baseDao.find(hql);
-		return list;
+		return baseDao.find(RiskPlan.class, "uid", submitterId);
 	}
 
 	@Override
 	public List<RiskPlan> getFollowPlans(int followId) {
-		String hql="from PlanItem where followerId="+followId;
-		List<PlanItem> list=baseDao.find(hql);
+		List<PlanItem> list=baseDao.find(PlanItem.class, "followerId", followId);
 		List<RiskPlan> result=new ArrayList<RiskPlan>();
 		for(PlanItem item:list){
 			int pid=item.getPid();
@@ -183,33 +178,13 @@ public class RiskPlanDaoImpl implements RiskPlanDao{
 
 	@Override
 	public List<RiskItemVO> getFollowItem(int followId, int pid) {
-		String hql="from PlanItem where followerId="+followId+" and pid="+pid;
-		List<PlanItem> list=baseDao.find(hql);
-		List<RiskItemVO> result=new ArrayList<RiskItemVO>();
-		for(PlanItem item:list){
-			int rid=item.getRid();
-			RiskItem riskItem=baseDao.load(RiskItem.class, rid);
-			RiskItemVO vo = new RiskItemVO();
-			vo.setContent(riskItem.getContent());
-			vo.setLevel(riskItem.getLevel());
-			vo.setName(riskItem.getName());
-			vo.setPossibility(riskItem.getPossibility());
-			vo.setRid(riskItem.getId());
-			vo.setRiskTrigger(riskItem.getRiskTrigger());
-			vo.setCreateTime(item.getCreateTime());
-			vo.setCurrentState(getStateById(item.getStateId()));
-			vo.setFollowName(userDao.getById(item.getFollowerId()).getUsername());
-			vo.setPid(item.getPid());
-			result.add(vo);
-		}
-			return result;
+		List<PlanItem> list=baseDao.find(PlanItem.class, new ParamMap("followerId", followId).append("pid", pid));
+		return this.getVOs(list);
 		}
 
 	@Override
 	public List<RiskState> getState(int pid, int rid) {
-		String hql="from RiskState where pid="+pid+" and rid="+rid;
-		List<RiskState> list=baseDao.find(hql);
-		return list;
+		return baseDao.find(RiskState.class,new ParamMap("rid", rid).append("pid", pid));
 	}
 
 	@Override
@@ -218,8 +193,7 @@ public class RiskPlanDaoImpl implements RiskPlanDao{
 			baseDao.save(state);
 			int rid=state.getRid();
 			int pid=state.getPid();
-			String hql="from PlanItem where rid="+rid+" and pid="+pid;
-			List<PlanItem> planList=baseDao.find(hql);
+			List<PlanItem> planList=baseDao.find(PlanItem.class, new ParamMap("rid", rid).append("pid", pid));
 			if(planList.size()>0){
 				PlanItem plan=planList.get(0);
 				plan.setState(state.getState());
@@ -262,8 +236,32 @@ public class RiskPlanDaoImpl implements RiskPlanDao{
 
 	@Override
 	public RiskPlan getById(int id) {
-		RiskPlan plan=baseDao.load(RiskPlan.class, id);
-		return plan;
+		return baseDao.load(RiskPlan.class, id);
 	}
 
+	private RiskItemVO toVO(PlanItem item, RiskItem riskItem) {
+		RiskItemVO vo = new RiskItemVO();
+		vo.setContent(riskItem.getContent());
+		vo.setLevel(riskItem.getLevel());
+		vo.setName(riskItem.getName());
+		vo.setPossibility(riskItem.getPossibility());
+		vo.setRid(riskItem.getId());
+		vo.setRiskTrigger(riskItem.getRiskTrigger());
+		vo.setCreateTime(item.getCreateTime());
+		vo.setCurrentState(getStateById(item.getStateId()));
+		vo.setFollowName(userDao.getById(item.getFollowerId()).getUsername());
+		vo.setPid(item.getPid());
+
+		return vo;
+	}
+
+	private List<RiskItemVO> getVOs(List<PlanItem> list) {
+		ArrayList<RiskItemVO> result = new ArrayList<>();
+		for (PlanItem item : list) {
+			int rid = item.getRid();
+			RiskItem riskItem = this.baseDao.load(RiskItem.class, rid);
+			result.add(this.toVO(item, riskItem));
+		}
+		return result;
+	}
 }

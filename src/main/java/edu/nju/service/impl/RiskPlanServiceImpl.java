@@ -44,6 +44,11 @@ public class RiskPlanServiceImpl implements RiskPlanService{
 	}
 
 	@Override
+	public RiskItemVO getRiskItem(int pid, int rid) {
+		return riskplanDao.getRiskItem(pid, rid);
+	}
+
+	@Override
 	public List<RiskItemVO> showAll(int pid) {
 		return riskplanDao.showAll(pid);
 	}
@@ -61,6 +66,11 @@ public class RiskPlanServiceImpl implements RiskPlanService{
 	@Override
 	public List<RiskItemVO> getFollowItem(int followId, int pid) {
 		return riskplanDao.getFollowItem(followId,pid);
+	}
+
+	@Override
+	public List<RiskItemVO> find(String keyword, int pid, int followerId) {
+		return this.riskplanDao.find(keyword, pid, followerId);
 	}
 
 	@Override

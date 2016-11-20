@@ -136,6 +136,7 @@ public class RiskPlanController extends BaseController {
             RiskState state) {
         state.setPid(pid);
         state.setRid(rid);
+        state.setCreateTime(Calendar.getInstance().getTime());
         this.riskPlanService.addState(state);
         return "redirect:/risk/plan/" + pid + "/" + rid;
     }

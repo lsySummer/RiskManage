@@ -48,7 +48,7 @@ public class RiskPlanDaoImpl implements RiskPlanDao{
 				state.setCreateTime(new Date());
 				state.setDetail("建立风险条目");
 				state.setState("新建");
-				state.setIfHappen(1);
+				state.setIfHappen(true);
 				state.setPid(pid);
 				state.setRid(risk.getId());
 				baseDao.save(state);
@@ -240,7 +240,7 @@ public class RiskPlanDaoImpl implements RiskPlanDao{
 			state.setCreateTime(new Date());
 			state.setDetail("建立风险条目");
 			state.setState("新建");
-			state.setIfHappen(1);
+			state.setIfHappen(true);
 			state.setPid(pid);
 			state.setRid(rid);
 			baseDao.save(state);

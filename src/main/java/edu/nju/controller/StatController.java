@@ -40,8 +40,11 @@ public class StatController {
             @RequestParam("type") String type,
             @RequestParam(value = "from", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date from,
             @RequestParam(value = "to", required = false) @DateTimeFormat(pattern = "yyyy-MM-dd") Date to) {
-        if (from == null || to == null) return new ArrayList<>();
-        if (type.equals("identify")) {
+        if (from == null || to == null) {
+            return new ArrayList<>();
+        }
+
+        if ("identify".equals(type)) {
             return this.statService.identifyMost(from, to);
         } else {
             return this.statService.happenMost(from, to);

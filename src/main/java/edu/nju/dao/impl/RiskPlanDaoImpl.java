@@ -44,7 +44,7 @@ public class RiskPlanDaoImpl implements RiskPlanDao{
 			boolean notExisted = this.baseDao.find(RiskItem.class, new ParamMap("name", risk.getName())).isEmpty();
 			if (notExisted) {
 				baseDao.save(risk);
-				System.out.println("riskId"+risk.getId());
+				LOGGER.log("riskId"+risk.getId());
 				RiskState state=new RiskState();
 				state.setCreateTime(new Date());
 				state.setDetail("建立风险条目");
@@ -108,7 +108,7 @@ public class RiskPlanDaoImpl implements RiskPlanDao{
 
 	@Override
 	public List<RiskItemVO> find(String keyword, int pid) {
-		List<RiskItemVO> resultList=new ArrayList<RiskItemVO>();
+		List<RiskItemVO> resultList= new ArrayList<>();
 		List<PlanItem> planList=baseDao.find(PlanItem.class, "pid", pid);
 		for(PlanItem item:planList){
 			int rid=item.getRid();
@@ -123,7 +123,7 @@ public class RiskPlanDaoImpl implements RiskPlanDao{
 
 	@Override
 	public List<RiskItemVO> find(String keyword, int pid, int followerId) {
-		List<RiskItemVO> resultList=new ArrayList<RiskItemVO>();
+		List<RiskItemVO> resultList= new ArrayList<>();
 		List<PlanItem> planList=baseDao.find(PlanItem.class, new ParamMap("pid", pid).append("followerId", followerId));
 		for(PlanItem item:planList){
 			int rid=item.getRid();
@@ -168,7 +168,7 @@ public class RiskPlanDaoImpl implements RiskPlanDao{
 	@Override
 	public List<RiskPlan> getFollowPlans(int followId) {
 		List<PlanItem> list=baseDao.find(PlanItem.class, "followerId", followId);
-		List<RiskPlan> result=new ArrayList<RiskPlan>();
+		List<RiskPlan> result= new ArrayList<>();
         HashSet<Integer> added = new HashSet<>();
         for(PlanItem item:list){
 			int pid=item.getPid();
@@ -198,7 +198,7 @@ public class RiskPlanDaoImpl implements RiskPlanDao{
 			int rid=state.getRid();
 			int pid=state.getPid();
 			List<PlanItem> planList=baseDao.find(PlanItem.class, new ParamMap("rid", rid).append("pid", pid));
-			if(planList.size()>0){
+			if(!planList.isEmpty()){
 				PlanItem plan=planList.get(0);
 				plan.setState(state.getState());
 				plan.setStateId(state.getId());
@@ -206,7 +206,7 @@ public class RiskPlanDaoImpl implements RiskPlanDao{
 			}
 			return true;
 		}catch(Exception e){
-			e.printStackTrace();
+			LOGGER.log(e);
 			return false;
 		}
 	}
@@ -233,7 +233,7 @@ public class RiskPlanDaoImpl implements RiskPlanDao{
 			baseDao.save(item);
 			return true;
 		}catch(Exception e){
-			e.printStackTrace();
+			LOGGER.log(e);
 		}
 		return false;
 	}

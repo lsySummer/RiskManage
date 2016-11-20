@@ -12,11 +12,11 @@ abstract class BaseController {
     @Autowired
     protected HttpSession session;
 
+    @Autowired
+    protected HttpServletRequest request;
+
     @ModelAttribute
     protected User getUser() {
         return (User) session.getAttribute("user");
     }
-
-    @Autowired
-    protected HttpServletRequest request;
 }

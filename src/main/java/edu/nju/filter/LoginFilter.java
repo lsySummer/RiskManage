@@ -10,19 +10,14 @@ import java.io.IOException;
 /**
  * Servlet Filter implementation class LoginFilter
  */
-@WebFilter("/risk/*")
+@WebFilter("/itemInfo/*")
 public class LoginFilter implements Filter {
-
-	/**
-	 * Default constructor.
-	 */
-	public LoginFilter() {
-	}
 
 	/**
 	 * @see Filter#destroy()
 	 */
 	public void destroy() {
+		// do nothing
 	}
 
 	/**
@@ -44,6 +39,7 @@ public class LoginFilter implements Filter {
 	 * @see Filter#init(FilterConfig)
 	 */
 	public void init(FilterConfig fConfig) throws ServletException {
+		// do nothing
 	}
 
 }

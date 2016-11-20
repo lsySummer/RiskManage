@@ -26,7 +26,7 @@
     <div class="panel">
         <div class="navi-tab"><a href="${pageContext.request.contextPath}/risk/plan/">全部列表</a></div>
         <div class="navi-tab"><a href="${pageContext.request.contextPath}/risk/plan/${planInfo.id}">${planInfo.planName}</a></div>
-        <div class="navi-tab">${risk.name}</div>
+        <div class="navi-tab">${itemInfo.name}</div>
     </div>
 
     <div class="main">
@@ -78,7 +78,7 @@
     </div>
 </div>
 
-<form class="form-horizontal" action="${pageContext.request.contextPath}/risk/plan/${planInfo.id}/${risk.id}/add_state" method="post">
+<form class="form-horizontal" action="${pageContext.request.contextPath}/risk/plan/${planInfo.id}/${itemInfo.id}/add_state" method="post">
     <div class="modal fade" id="add_state" tabindex="-1" role="dialog" aria-labelledby="新增状态">
         <div class="modal-dialog" role="document">
             <div class="modal-content">

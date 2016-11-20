@@ -21,7 +21,7 @@ public class RiskDaoImpl implements RiskDao {
 	public boolean add(RiskItem risk) {
 		try {
 			baseDao.save(risk);
-//			int id = risk.getId();
+//			int id = itemInfo.getId();
 //			RiskState state = new RiskState();
 //			state.setRid(id);
 //			state.setCreateTime(new Date());

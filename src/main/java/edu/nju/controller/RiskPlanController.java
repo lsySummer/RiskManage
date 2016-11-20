@@ -21,12 +21,16 @@ import java.util.List;
 public class RiskPlanController extends BaseController {
 
     private final RiskPlanService riskPlanService;
-
     private final UserService userService;
-
     private final RiskService riskService;
 
-    private static final String planInfoField = "planInfo";
+    private static final String BASE_PATH = "/risk/plan/";
+    private static final String REDIRECT_BASE_PATH = "redirect:" + BASE_PATH;
+
+    private static final String PLAN_INFO = "planInfo";
+    private static final String ITEM_INFO = "itemInfo";
+    private static final String ITEMS = "items";
+    private static final String USERS = "users";
 
     @Autowired
     public RiskPlanController(UserService userService, RiskPlanService riskPlanService, RiskService riskService) {
@@ -53,14 +57,11 @@ public class RiskPlanController extends BaseController {
 
         this.riskPlanService.addRiskPlan(plan);
 
-        return "redirect:/risk/plan/";
+        return REDIRECT_BASE_PATH;
     }
 
     @RequestMapping("/{pid}")
     public ModelAndView detail(@PathVariable("pid") int pid, @RequestParam(value = "search", defaultValue = "") String keyword) {
-        if (keyword.isEmpty()) {
-
-        }
         RiskPlan plan = this.riskPlanService.getById(pid);
 
         int userId = this.getUser().getId();
@@ -81,8 +82,8 @@ public class RiskPlanController extends BaseController {
             }
         }
 
-        return new ModelAndView("plan/detail", "items", items)
-                .addObject(planInfoField, plan)
+        return new ModelAndView("plan/detail", ITEMS, items)
+                .addObject(PLAN_INFO, plan)
                 .addObject("isCreator", isCreator);
     }
 
@@ -90,8 +91,8 @@ public class RiskPlanController extends BaseController {
     public ModelAndView addItem(@PathVariable("pid") int pid) {
         RiskPlan plan = this.riskPlanService.getById(pid);
         List<User> users = this.userService.showAll();
-        return new ModelAndView("plan/addItem", planInfoField, plan)
-                .addObject("users", users);
+        return new ModelAndView("plan/addItem", PLAN_INFO, plan)
+                .addObject(USERS, users);
     }
 
     @RequestMapping(value = "/{pid}/add_item", method = RequestMethod.POST)
@@ -101,7 +102,7 @@ public class RiskPlanController extends BaseController {
             RiskItem item) {
         this.riskPlanService.itemAdd(item, pid, follower);
 
-        return "redirect:/risk/plan/" + pid;
+        return REDIRECT_BASE_PATH + pid;
     }
 
     @RequestMapping(value = "/{pid}/import_item", method = RequestMethod.GET)
@@ -114,9 +115,9 @@ public class RiskPlanController extends BaseController {
 
         List<User> users = this.userService.showAll();
 
-        return new ModelAndView("/plan/importItem", planInfoField, plan)
-                .addObject("items", items)
-                .addObject("users", users);
+        return new ModelAndView("/plan/importItem", PLAN_INFO, plan)
+                .addObject(ITEMS, items)
+                .addObject(USERS, users);
     }
 
     @RequestMapping(value = "/{pid}/import_item", method = RequestMethod.POST)
@@ -126,7 +127,7 @@ public class RiskPlanController extends BaseController {
             @RequestParam("follower") int followerId) {
         this.riskPlanService.importRisk(riskId, pid, followerId);
 
-        return "redirect:/risk/plan/" + pid;
+        return REDIRECT_BASE_PATH + pid;
     }
 
     @RequestMapping(value = "/{pid}/{rid}/modify", method = RequestMethod.GET)
@@ -134,9 +135,9 @@ public class RiskPlanController extends BaseController {
         RiskPlan plan = this.riskPlanService.getById(pid);
         RiskItemVO item = this.riskPlanService.getRiskItem(pid, rid);
         List<User> users = this.userService.showAll();
-        return new ModelAndView("/plan/modifyItem", planInfoField, plan)
-                .addObject("itemInfo", item)
-                .addObject("users", users);
+        return new ModelAndView("/plan/modifyItem", PLAN_INFO, plan)
+                .addObject(ITEM_INFO, item)
+                .addObject(USERS, users);
     }
 
     @RequestMapping(value = "/{pid}/{rid}/modify", method = RequestMethod.POST)
@@ -147,13 +148,13 @@ public class RiskPlanController extends BaseController {
             RiskItem item) {
         item.setId(rid);
         this.riskPlanService.itemModify(item, pid, followerId);
-        return "redirect:/risk/plan/" + pid;
+        return REDIRECT_BASE_PATH + pid;
     }
 
     @RequestMapping(value = "/{pid}/{rid}/remove", method = RequestMethod.POST)
     public String removeItem(@PathVariable("pid") int pid, @PathVariable("rid") int rid) {
         this.riskPlanService.itemDelete(rid, pid);
-        return "redirect:/risk/plan/" + pid;
+        return REDIRECT_BASE_PATH + pid;
     }
 
     @RequestMapping("/{pid}/{rid}")
@@ -164,8 +165,8 @@ public class RiskPlanController extends BaseController {
         RiskPlan plan = this.riskPlanService.getById(pid);
         RiskItem risk = this.riskService.getById(rid);
         return new ModelAndView("plan/itemStates", "states", states)
-                .addObject(planInfoField, plan)
-                .addObject("risk", risk);
+                .addObject(PLAN_INFO, plan)
+                .addObject(ITEM_INFO, risk);
     }
 
     @RequestMapping(value = "/{pid}/{rid}/add_state", method = RequestMethod.POST)
@@ -175,6 +176,6 @@ public class RiskPlanController extends BaseController {
             RiskState state) {
         state.setCreateTime(Calendar.getInstance().getTime());
         this.riskPlanService.addState(state);
-        return "redirect:/risk/plan/" + pid + "/" + rid;
+        return REDIRECT_BASE_PATH + pid + "/" + rid;
     }
 }

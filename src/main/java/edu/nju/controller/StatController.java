@@ -44,6 +44,10 @@ public class StatController {
             return new ArrayList<>();
         }
 
+        Calendar c = Calendar.getInstance();
+        c.setTime(to);
+        c.add(Calendar.DATE, 1);
+        to = c.getTime();
         if ("identify".equals(type)) {
             return this.statService.identifyMost(from, to);
         } else {

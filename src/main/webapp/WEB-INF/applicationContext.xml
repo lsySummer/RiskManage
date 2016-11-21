@@ -17,8 +17,8 @@
         <property name="driverClassName" value="com.mysql.cj.jdbc.Driver"/>
         <property name="url"
                   value="jdbc:mysql://120.132.12.242:3306/risk?useUnicode=true&amp;characterEncoding=UTF-8&amp;useJDBCCompliantTimezoneShift=true&amp;useLegacyDatetimeCode=false&amp;serverTimezone=GMT%2B8"/>
-        <property name="username" value="root"/>
-        <property name="password" value="root"/>
+        <property name="username" value="risk"/>
+        <property name="password" value="risk"/>
     </bean>
 
     <!-- 配置sessionFactory -->

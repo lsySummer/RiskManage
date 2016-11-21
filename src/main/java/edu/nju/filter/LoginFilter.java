@@ -10,7 +10,7 @@ import java.io.IOException;
 /**
  * Servlet Filter implementation class LoginFilter
  */
-@WebFilter("/itemInfo/*")
+@WebFilter("/risk/*")
 public class LoginFilter implements Filter {
 
 	/**

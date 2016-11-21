@@ -21,7 +21,7 @@
             })
         });
         function showDeleteModal(rid) {
-            let url = "${pageContext.request.contextPath}/itemInfo/plan/${planInfo.id}/"+ rid + "/remove";
+            let url = "${pageContext.request.contextPath}/risk/plan/${planInfo.id}/"+ rid + "/remove";
             $("#delete_form").attr("action", url);
             $('#delete_item').modal('show');
         }
@@ -72,7 +72,7 @@
         <div class="panels-container">
             <c:forEach items="${items}" var="item">
                 <div class="col-sm-6 col-lg-4"
-                     onclick="location.href='${pageContext.request.contextPath}/itemInfo/plan/${planInfo.id}/${item.rid}'">
+                     onclick="location.href='${pageContext.request.contextPath}/risk/plan/${planInfo.id}/${item.rid}'">
                     <div class="panel card hover">
                         <div class="panel-header">
                             <h4 class="text-center wrap-word">

@@ -22,7 +22,7 @@
         $(document).ready(function () {
             $("form").submit(function (e) {
                 e.preventDefault();
-                let url = "${pageContext.request.contextPath}/itemInfo/stat/get";
+                let url = "${pageContext.request.contextPath}/risk/stat/get";
                 $.get(url, $(this).serialize(), function (result) {
                     let datasets = {
                         label: "次数",

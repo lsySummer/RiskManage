@@ -35,7 +35,7 @@ public class UserController {
         User user = this.userService.login(username, password, role);
         if (user != null) {
             session.setAttribute("user", user);
-            return "redirect:/itemInfo/plan/";
+            return "redirect:/risk/plan/";
         } else {
             return "redirect:/";
         }
@@ -50,7 +50,7 @@ public class UserController {
         User user = this.userService.register(username, password, role);
         if (user != null) {
             session.setAttribute("user", user);
-            return "redirect:/itemInfo/plan/";
+            return "redirect:/risk/plan/";
         } else {
             return "redirect:/";
         }

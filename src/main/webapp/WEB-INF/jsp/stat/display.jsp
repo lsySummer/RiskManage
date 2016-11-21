@@ -76,33 +76,35 @@
         <div class="panel">
             <div class="panel-header">
                 <form class="form-inline">
-                    <div class="btn-group" data-toggle="buttons">
-                        <label class="btn btn-info active">
-                            <input type="radio" name="type" value="identify" autocomplete="off" checked> 识别最多
-                        </label>
-                        <label class="btn btn-info">
-                            <input type="radio" name="type" value="happen" autocomplete="off"> 发生最多
-                        </label>
-                    </div>
-                    <div class="input-group">
-                        <div class="input-group-addon">
-                            <span class="glyphicon glyphicon-calendar"></span>
-                        </div>
-                        <label class="sr-only" for="from">开始日期</label>
-                        <fmt:formatDate value="${from}" pattern="yyyy-MM-dd" var="fromFmt"/>
-                        <input type="date" class="form-control" id="from" name="from" value="${fromFmt}">
-                        <div class="input-group-addon">
-                            至
-                        </div>
-                        <label class="sr-only" for="to">结束日期</label>
-                        <fmt:formatDate value="${to}" pattern="yyyy-MM-dd" var="toFmt"/>
-                        <input type="date" class="form-control" id="to" name="to" value="${toFmt}">
-                    </div>
-                    <button type="submit" class="btn btn-success">
-                        <span class="glyphicon glyphicon-search"></span>
-                    </button>
+                    <a href="${pageContext.request.contextPath}/risk/plan/" class="btn btn-default left-align">返回</a>
 
-                    <a href="${pageContext.request.contextPath}/risk/plan/" class="btn btn-default right-align">返回</a>
+                    <div class="right-align">
+                        <div class="btn-group" data-toggle="buttons">
+                            <label class="btn btn-info active">
+                                <input type="radio" name="type" value="identify" autocomplete="off" checked> 识别最多
+                            </label>
+                            <label class="btn btn-info">
+                                <input type="radio" name="type" value="happen" autocomplete="off"> 发生最多
+                            </label>
+                        </div>
+                        <div class="input-group">
+                            <div class="input-group-addon">
+                                <span class="glyphicon glyphicon-calendar"></span>
+                            </div>
+                            <label class="sr-only" for="from">开始日期</label>
+                            <fmt:formatDate value="${from}" pattern="yyyy-MM-dd" var="fromFmt"/>
+                            <input type="date" class="form-control" id="from" name="from" value="${fromFmt}">
+                            <div class="input-group-addon">
+                                至
+                            </div>
+                            <label class="sr-only" for="to">结束日期</label>
+                            <fmt:formatDate value="${to}" pattern="yyyy-MM-dd" var="toFmt"/>
+                            <input type="date" class="form-control" id="to" name="to" value="${toFmt}">
+                        </div>
+                        <button type="submit" class="btn btn-success">
+                            <span class="glyphicon glyphicon-search"></span>
+                        </button>
+                    </div>
                 </form>
             </div>
             <div class="panel-body">
